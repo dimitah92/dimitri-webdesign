@@ -20,4 +20,4 @@ jobs:
           local-dir: ./
           server-dir: /www/
           include: |
-            portugues_daily.html
+            quiz.html

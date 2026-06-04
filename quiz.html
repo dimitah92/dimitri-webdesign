@@ -54,6 +54,7 @@ header {
   width: 100%; max-width: 560px; background: var(--yellow-bg);
   border: 1px solid #e8d08a; padding: 10px 16px; margin-bottom: 16px;
   font-size: 0.78rem; color: var(--yellow); display: flex; align-items: center; gap: 8px;
+  flex-wrap: wrap;
 }
 .day-banner strong { color: var(--ink); }
 
@@ -452,7 +453,7 @@ function dayBanner(){
   const months = ['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
   const label = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   document.getElementById('h-date').textContent = label;
-  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 15 questions</span></div>`;
+  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 15 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
 }
 
 function buildCard(ex){
@@ -574,6 +575,13 @@ function showEnd(main){
 }
 
 function restart(){ buildQueue(); cur=0; correct=0; answered=0; showCurrent(); }
+
+function reshuffleDay(){
+  const pool = shuffle(ALL_EX.map((_,i)=>i));
+  queue = pool.slice(0, DAILY_COUNT);
+  cur=0; correct=0; answered=0; choiceSel=null;
+  showCurrent();
+}
 
 // ─── BOOT ────────────────────────────────────────────────────────
 document.getElementById('h-date').textContent = (()=>{

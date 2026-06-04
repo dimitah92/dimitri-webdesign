@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Português · Quiz du jour</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f5f0e8; --paper: #fffdf7; --ink: #1a1612; --ink2: #4a4540; --ink3: #8a8480;
+  --green: #2d6a3f; --green-bg: #eaf3ec; --red: #8b2020; --red-bg: #f8eaea;
+  --yellow: #c8860a; --yellow-bg: #fdf3e0; --blue: #1a4a7a; --border: #d8d0c0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Mono', monospace; background: var(--bg); color: var(--ink);
+  min-height: 100vh; display: flex; flex-direction: column;
+  background-image: repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(26,22,18,0.04) 28px);
+}
+
+header {
+  background: var(--ink); color: var(--bg);
+  padding: 16px 18px; display: flex; align-items: center; justify-content: space-between;
+}
+.h-left { display: flex; align-items: flex-end; gap: 10px; }
+.h-flag { font-size: 1.5rem; }
+.h-title { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 900; letter-spacing: -0.5px; }
+.h-date { font-size: 0.65rem; opacity: 0.45; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 1px; }
+.score-badge {
+  font-family: 'Fraunces', serif; font-size: 1.2rem; font-weight: 900;
+  color: var(--green); background: rgba(63,185,80,0.12); padding: 3px 11px; border-radius: 4px;
+}
+
+.prog-wrap { background: var(--paper); border-bottom: 1px solid var(--border); padding: 8px 16px; display: flex; align-items: center; gap: 10px; }
+.prog-track { flex: 1; height: 5px; background: var(--border); }
+.prog-fill { height: 100%; background: var(--ink); transition: width 0.35s ease; }
+.prog-label { font-size: 0.7rem; color: var(--ink3); white-space: nowrap; }
+
+/* MODE TABS */
+.mode-bar { background: var(--paper); border-bottom: 2px solid var(--border); padding: 0; display: flex; }
+.mode-tab {
+  flex: 1; padding: 10px 6px; border: none; background: transparent;
+  font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 500;
+  color: var(--ink3); cursor: pointer; transition: all 0.12s;
+  border-bottom: 3px solid transparent; text-transform: uppercase; letter-spacing: 0.5px;
+}
+.mode-tab:hover { color: var(--ink); }
+.mode-tab.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+.main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 20px 16px 40px; }
+
+/* DAY BANNER */
+.day-banner {
+  width: 100%; max-width: 560px; background: var(--yellow-bg);
+  border: 1px solid #e8d08a; padding: 10px 16px; margin-bottom: 16px;
+  font-size: 0.78rem; color: var(--yellow); display: flex; align-items: center; gap: 8px;
+}
+.day-banner strong { color: var(--ink); }
+
+/* CARD */
+.card {
+  background: var(--paper); border: 1px solid var(--border); border-left: 5px solid var(--border);
+  width: 100%; max-width: 560px; padding: 22px 20px 18px;
+  box-shadow: 0 2px 14px rgba(26,22,18,0.07);
+  animation: pop 0.2s ease both;
+}
+@keyframes pop { from { opacity:0; transform:translateY(7px) scale(0.99); } to { opacity:1; transform:none; } }
+.card.state-ok { border-left-color: var(--green); background: var(--green-bg); }
+.card.state-ko { border-left-color: var(--red); background: var(--red-bg); }
+
+.card-meta { font-size: 0.62rem; letter-spacing: 1px; text-transform: uppercase; color: var(--ink3); margin-bottom: 5px; display: flex; gap: 8px; }
+.card-cat { color: var(--yellow); font-weight: 600; }
+.card-prompt { font-family: 'Fraunces', serif; font-size: 1.05rem; font-weight: 700; color: var(--ink); margin-bottom: 14px; line-height: 1.45; }
+.card-prompt em { font-style: italic; font-weight: 400; color: var(--ink2); }
+.card-q { font-family: 'Fraunces', serif; font-size: 1rem; color: var(--ink2); margin-bottom: 14px; line-height: 1.5; }
+
+/* CONJ */
+.conj-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.conj-row { display: flex; align-items: center; gap: 10px; }
+.pronoun { font-size: 0.78rem; color: var(--ink3); font-weight: 500; min-width: 66px; }
+.conj-input {
+  flex: 1; background: transparent; border: none; border-bottom: 1.5px solid var(--border);
+  color: var(--blue); font-family: 'DM Mono', monospace; font-size: 0.88rem; font-weight: 500;
+  padding: 3px 4px; outline: none; transition: border-color 0.15s;
+}
+.conj-input:focus { border-bottom-color: var(--ink); }
+.conj-input.ok { color: var(--green); border-bottom-color: var(--green); }
+.conj-input.ko { color: var(--red); border-bottom-color: var(--red); }
+.fix { font-size: 0.76rem; color: var(--green); font-weight: 600; margin-left: 2px; }
+
+/* TROU */
+.trou-line { font-family: 'Fraunces', serif; font-size: 1rem; line-height: 2.8; margin-bottom: 14px; }
+.blank {
+  display: inline-block; background: transparent; border: none; border-bottom: 2px solid var(--blue);
+  color: var(--blue); font-family: 'DM Mono', monospace; font-size: 0.86rem; font-weight: 500;
+  width: 96px; padding: 1px 4px; outline: none; text-align: center; transition: border-color 0.15s;
+}
+.blank:focus { border-bottom-color: var(--ink); }
+.blank.ok { border-bottom-color: var(--green); color: var(--green); }
+.blank.ko { border-bottom-color: var(--red); color: var(--red); }
+.ifix { font-size: 0.76rem; color: var(--green); font-weight: 600; margin-left: 3px; }
+
+/* TRAD / WORD */
+.word-big { font-family: 'Fraunces', serif; font-size: 2rem; font-weight: 900; color: var(--ink); margin-bottom: 16px; }
+.answer-input {
+  width: 100%; padding: 10px 12px; background: transparent; border: 1.5px solid var(--border);
+  color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.9rem;
+  outline: none; transition: border-color 0.15s; margin-bottom: 12px;
+}
+.answer-input:focus { border-color: var(--ink); }
+.answer-input.ok { border-color: var(--green); color: var(--green); }
+.answer-input.ko { border-color: var(--red); }
+
+/* CHOICES */
+.choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+.choice {
+  padding: 9px 13px; border: 1px solid var(--border); background: transparent;
+  color: var(--ink); font-family: 'DM Mono', monospace; font-size: 0.85rem;
+  text-align: left; cursor: pointer; transition: all 0.12s; white-space: pre-line;
+}
+.choice:hover:not([disabled]) { border-color: var(--ink); background: var(--yellow-bg); }
+.choice.sel { border-color: var(--blue); background: #eaf0fa; color: var(--blue); }
+.choice.right { border-color: var(--green); background: var(--green-bg); color: var(--green); font-weight: 500; }
+.choice.wrong-pick { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+
+/* FEEDBACK */
+.feedback { padding: 11px 14px; font-size: 0.84rem; line-height: 1.55; border-left: 3px solid; margin-bottom: 14px; display: none; }
+.feedback.show { display: block; }
+.feedback.ok { background: var(--green-bg); border-color: var(--green); color: var(--green); }
+.feedback.ko { background: var(--red-bg); border-color: var(--red); color: var(--red); }
+.fr-trans { margin-top: 5px; font-family: 'Fraunces', serif; font-style: italic; font-size: 0.9rem; color: var(--ink2); }
+.note-line { font-size: 0.74rem; color: var(--ink3); margin-top: 4px; }
+
+/* BTNS */
+.btn-row { display: flex; gap: 8px; margin-top: 4px; }
+.btn { padding: 9px 20px; border: none; font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 500; cursor: pointer; transition: opacity 0.15s; }
+.btn-check { background: var(--ink); color: var(--bg); }
+.btn-next  { background: var(--green); color: #fff; }
+.btn:hover { opacity: 0.78; }
+
+/* END SCREEN */
+.end-screen { text-align: center; padding: 36px 20px; max-width: 420px; }
+.end-big { font-family: 'Fraunces', serif; font-size: 3.5rem; font-weight: 900; color: var(--green); }
+.end-sub { font-family: 'Fraunces', serif; font-size: 1.1rem; color: var(--ink2); margin-top: 6px; }
+.end-msg { font-size: 0.82rem; color: var(--ink3); margin-top: 10px; line-height: 1.7; }
+.btn-restart { margin-top: 20px; display: inline-block; background: var(--ink); color: var(--bg); padding: 10px 24px; font-family: 'DM Mono', monospace; font-size: 0.82rem; cursor: pointer; border: none; }
+.btn-restart2 { margin-top: 10px; display: inline-block; background: transparent; color: var(--ink); border: 1px solid var(--border); padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 0.78rem; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="h-left">
+    <div class="h-flag">🇧🇷</div>
+    <div>
+      <div class="h-title">Quiz du jour</div>
+      <div class="h-date" id="h-date">—</div>
+    </div>
+  </div>
+  <div class="score-badge" id="score-badge">0/0</div>
+</header>
+
+<div class="prog-wrap">
+  <div class="prog-track"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+  <div class="prog-label" id="prog-label">0 / 15</div>
+</div>
+
+<div class="mode-bar">
+  <button class="mode-tab active" id="tab-day"  onclick="setMode('day',this)">📅 15 du jour</button>
+  <button class="mode-tab" id="tab-all"  onclick="setMode('all',this)">🌐 Tout (55)</button>
+  <button class="mode-tab" id="tab-conj" onclick="setMode('conjugaison',this)">📝 Conjugaison</button>
+  <button class="mode-tab" id="tab-voc"  onclick="setMode('vocabulaire',this)">📦 Vocabulaire</button>
+  <button class="mode-tab" id="tab-trad" onclick="setMode('traduction',this)">🔄 Traduction</button>
+</div>
+
+<div class="main" id="main"></div>
+
+<script>
+// ─── ALL EXERCISES ───────────────────────────────────────────────
+const ALL_EX = [
+  // CONJUGAISON (Eu / Você / Nós / Vocês — pas de Tu)
+  { id:'c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>chamar-se</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['me chamo','se chama','nos chamamos','se chamam'],
+    fr:'me appelle / s\'appelle / nous appelons / s\'appellent' },
+  { id:'c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>acordar-se</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['me acordo','se acorda','nos acordamos','se acordam'],
+    fr:'me réveille / se réveille / nous réveillons / se réveillent' },
+  { id:'c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>lembrar-se</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['me lembro','se lembra','nos lembramos','se lembram'],
+    fr:'me souviens / se souvient / nous souvenons / se souviennent' },
+  { id:'c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>enganar-se</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['me engano','se engana','nos enganamos','se enganam'],
+    fr:'me trompe / se trompe / nous trompons / se trompent' },
+  { id:'c5', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conhecer</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['conheço','conhece','conhecemos','conhecem'],
+    fr:'connais / connaît / connaissons / connaissent' },
+  { id:'c6', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ser</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['sou','é','somos','são'],
+    fr:'suis / est / sommes / sont' },
+  { id:'c7', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>estar</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['estou','está','estamos','estão'],
+    fr:'suis / est / sommes / sont' },
+  { id:'c8', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ter</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['tenho','tem','temos','têm'],
+    fr:'ai / a / avons / ont' },
+  { id:'c9', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ficar</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['fico','fica','ficamos','ficam'],
+    fr:'reste / reste / restons / restent' },
+  { id:'c10', cat:'conjugaison', type:'conj', prompt:'Gérondif — <em>estar + trabalhar</em>',
+    pronouns:['Eu','Você','Nós','Vocês'], answers:['estou trabalhando','está trabalhando','estamos trabalhando','estão trabalhando'],
+    fr:'suis / est / sommes / sont en train de travailler' },
+
+  // TEXTES À TROUS
+  { id:'t1', cat:'trou', type:'trou', prompt:'Contractions — complète :',
+    parts:['Eu vou ',' padaria e depois vou ',' cinema.'], answers:['à','ao'], hints:['a+a','a+o'],
+    fr:'Je vais à la boulangerie et ensuite au cinéma.' },
+  { id:'t2', cat:'trou', type:'trou', prompt:'Contractions — complète :',
+    parts:['Estou ',' casa ',' minha mãe.'], answers:['na','da'], hints:['em+a','de+a'],
+    fr:'Je suis à la maison de ma mère.' },
+  { id:'t3', cat:'trou', type:'trou', prompt:'ser ou morar ? Complète :',
+    parts:['Ela ',' professora primária e ',' em La Rochelle.'], answers:['é','mora'], hints:['ser','morar'],
+    fr:'Elle est professeure des écoles et habite à La Rochelle.' },
+  { id:'t4', cat:'trou', type:'trou', prompt:'ser ou estar avec adjectif ?',
+    parts:['Ela ',' feliz — de nature.\nEla ',' feliz — en ce moment.'], answers:['é','está'], hints:['durable','ponctuel'],
+    fr:'Elle est heureuse (de nature). Elle est heureuse (en ce moment).' },
+  { id:'t5', cat:'trou', type:'trou', prompt:'gostar + DE — complète :',
+    parts:['Eu gosto ',' chocolate e ',' correr na praia.'], answers:['de','de'], hints:['gostar+DE','gostar+DE'],
+    fr:'J\'aime le chocolat et courir sur la plage.' },
+  { id:'t6', cat:'trou', type:'trou', prompt:'Contractions por — complète :',
+    parts:['Obrigado ',' flores! Parabéns ',' casamento!'], answers:['pelas','pelo'], hints:['por+as','por+o'],
+    fr:'Merci pour les fleurs ! Félicitations pour le mariage !' },
+  { id:'t7', cat:'trou', type:'trou', prompt:'Article défini — complète :',
+    parts:['É ',' meu celular e é ',' minha garrafa de água.'], answers:['o','a'], hints:['masc.','fém.'],
+    fr:'C\'est mon portable et c\'est ma bouteille d\'eau.' },
+  { id:'t8', cat:'trou', type:'trou', prompt:'Desde ou há ? Complète :',
+    parts:['Moro em Paris ',' 2014. Tenho este emprego ',' 3 anos.'], answers:['desde','há'], hints:['date précise','durée'],
+    fr:'J\'habite à Paris depuis 2014. J\'ai ce travail depuis 3 ans.' },
+  { id:'t9', cat:'trou', type:'trou', prompt:'Demonstratifs — complète :',
+    parts:['','  é meu amigo (juste à côté).\n','  é meu colega (un peu plus loin).\n','  é meu professor (là-bas).'],
+    answers:['Este','Esse','Aquele'], hints:['muito perto','um pouco perto','longe'],
+    fr:'Celui-ci est mon ami. Celui-là est mon collègue. Celui là-bas est mon prof.' },
+  { id:'t10', cat:'trou', type:'trou', prompt:'Pluriel — complète :',
+    parts:['Um jornal → dois ','.\nUma cor → três ','.\nUm hotel → vários ','.'],
+    answers:['jornais','cores','hotéis'], hints:['-al→-ais','-r→-res','-el→-éis'],
+    fr:'Un journal → deux journaux. Une couleur → trois couleurs. Un hôtel → plusieurs hôtels.' },
+  { id:'t11', cat:'trou', type:'trou', prompt:'Pluriel + accord — complète :',
+    parts:['O jornal é francês → Os jornais são ','.\nO hotel é agradável → Os hotéis são ','.'],
+    answers:['franceses','agradáveis'], hints:['-ês→-eses','-el→-eis'],
+    fr:'Les journaux sont français. Les hôtels sont agréables.' },
+
+  // TRADUCTION
+  { id:'r1', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je m\'appelle Dimitri. Je suis français.',
+    answer:'eu me chamo dimitri eu sou frances', accept:['me chamo dimitri sou frances','eu me chamo dimitri, eu sou frances'],
+    fr:'Eu me chamo Dimitri. Eu sou francês.' },
+  { id:'r2', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je suis chef de projet digital.',
+    answer:'eu sou chefe de projeto digital', accept:['sou chefe de projeto digital'],
+    fr:'Eu sou chefe de projeto digital.' },
+  { id:'r3', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Ela tem dois filhos, um menino e uma menina.',
+    answer:'elle a deux enfants un garçon et une fille',
+    fr:'Elle a deux enfants, un garçon et une fille.' },
+  { id:'r4', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je vais au cinéma.',
+    answer:'eu vou ao cinema', accept:['vou ao cinema'],
+    fr:'Eu vou ao cinema.' },
+  { id:'r5', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Você está em qual cidade?',
+    answer:'tu es dans quelle ville', accept:['dans quelle ville es-tu','vous êtes dans quelle ville'],
+    fr:'Tu es dans quelle ville ?' },
+  { id:'r6', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Il joue de la batterie.',
+    answer:'ele toca bateria', fr:'Ele toca bateria.' },
+  { id:'r7', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Eu estou trabalhando em casa hoje.',
+    answer:'je travaille a la maison aujourd hui',
+    accept:['aujourd hui je travaille a la maison','je suis en train de travailler a la maison aujourd hui'],
+    fr:'Je travaille à la maison aujourd\'hui.' },
+  { id:'r8', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'J\'ai faim.',
+    answer:'eu tenho fome', accept:['tenho fome','eu estou com fome','estou com fome'],
+    fr:'Eu tenho fome. / Eu estou com fome.' },
+  // Nouvelles traductions — pluriel / couleurs
+  { id:'r9', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Les couleurs du drapeau français sont bleu, blanc et rouge.',
+    answer:'as cores da bandeira da franca sao azul branco e vermelho',
+    accept:['as cores da bandeira francesa sao azul branco e vermelho'],
+    fr:'As cores da bandeira da França são azul, branco e vermelho.' },
+  { id:'r10', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Ce sont des fêtes universelles.',
+    answer:'sao festas universais', accept:['são festas universais','sao umas festas universais','são umas festas universais'],
+    fr:'São festas universais.' },
+  { id:'r11', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Gilberto Gil et Caetano Veloso sont des chanteurs brésiliens.',
+    answer:'gilberto gil e caetano veloso sao cantores brasileiros',
+    fr:'Gilberto Gil e Caetano Veloso são cantores brasileiros.' },
+  { id:'r12', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Mercedes-Benz e Volkswagen são marcas alemãs.',
+    answer:'mercedes-benz et volkswagen sont des marques allemandes',
+    accept:['mercedes benz et volkswagen sont des marques allemandes'],
+    fr:'Mercedes-Benz et Volkswagen sont des marques allemandes.' },
+  { id:'r13', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Ils achètent beaucoup de vêtements.',
+    answer:'eles compram muitas roupas',
+    fr:'Eles compram muitas roupas.' },
+
+  // VOCABULAIRE — cesto de palavras complet
+  { id:'v1',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'doente',         answer:'malade', fr:'doente = malade' },
+  { id:'v2',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'cansado',        answer:'fatigue', accept:['fatigué','fatigué(e)','fatiguée'], fr:'cansado = fatigué(e)' },
+  { id:'v3',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'limpo',          answer:'propre', fr:'limpo = propre' },
+  { id:'v4',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'em cima da mesa',answer:'sur la table', fr:'em cima da mesa = sur la table' },
+  { id:'v5',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a caneta',       answer:'le stylo', accept:['stylo','un stylo'], fr:'a caneta = le stylo' },
+  { id:'v6',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'atrasado',       answer:'en retard', fr:'atrasado = en retard' },
+  { id:'v7',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'em prol de',     answer:'en faveur de', accept:['pour','au profit de'], fr:'em prol de = en faveur de' },
+  { id:'v8',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'além de',        answer:'en plus de', accept:['au-delà de','outre'], fr:'além de = en plus de / au-delà de' },
+  { id:'v9',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'cores',          answer:'couleurs', accept:['les couleurs'], fr:'cores = couleurs' },
+  { id:'v10', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'cada',           answer:'chaque', accept:['chacun','chacune'], fr:'cada = chaque / chacun(e)' },
+  { id:'v11', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'amanhã',         answer:'demain', fr:'amanhã = demain  (≠ manhã = le matin)' },
+  { id:'v12', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'manhã',          answer:'le matin', accept:['matin','la matinée'], fr:'manhã = le matin  (≠ amanhã = demain)' },
+  { id:'v13', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'marcar',         answer:'prendre un rendez-vous', accept:['prendre un rdv','prendre rendez-vous'], fr:'marcar = prendre un rendez-vous' },
+  { id:'v14', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'maior',          answer:'plus grand', accept:['le plus grand'], fr:'maior = plus grand' },
+  { id:'v15', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'menor',          answer:'plus petit', accept:['le plus petit'], fr:'menor = plus petit' },
+  { id:'v16', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'violão',         answer:'guitare acoustique', accept:['guitare'], fr:'violão = guitare acoustique' },
+  { id:'v17', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'sonhar com',     answer:'rêver de', accept:['rever de'], fr:'sonhar com = rêver de' },
+  { id:'v18', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'estadunidense',  answer:'américain', accept:['américaine','americain'], fr:'estadunidense = américain(e) des États-Unis' },
+  // Nouveau cesto 03/06
+  { id:'v19', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'agradável',      answer:'agréable', fr:'agradável = agréable' },
+  { id:'v20', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'roupa',          answer:'vêtement', accept:['vêtements','habit','habits'], fr:'roupa = vêtement(s)' },
+  { id:'v21', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'todas as cores', answer:'toutes les couleurs', fr:'todas as cores = toutes les couleurs' },
+  { id:'v22', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Me deseja sorte!',answer:'souhaite-moi bonne chance', accept:['bonne chance','souhaite moi bonne chance'], fr:'Me deseja sorte! = Souhaite-moi bonne chance !' },
+  { id:'v23', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'azul',           answer:'bleu', accept:['bleue'], fr:'azul = bleu / bleue' },
+  { id:'v24', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'vermelho',       answer:'rouge', fr:'vermelho = rouge' },
+  { id:'v25', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'verde',          answer:'vert', accept:['verte'], fr:'verde = vert / verte' },
+  { id:'v26', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'laranja',        answer:'orange', fr:'laranja = orange' },
+
+  // CHOIX MULTIPLE
+  { id:'m1', cat:'choix', type:'choix', prompt:'Ser ou Estar ? Elle est (en ce moment) fatiguée.',
+    choices:['Ela é cansada.','Ela está cansada.','Ela fica cansada.','Ela tem cansada.'], answer:1,
+    fr:'Ela está cansada. → état ponctuel = estar' },
+  { id:'m2', cat:'choix', type:'choix', prompt:'Ser ou Estar ? Il est (de nature) très sympa.',
+    choices:['Ele está muito simpático.','Ele é muito simpático.','Ele fica simpático.','Ele tem simpático.'], answer:1,
+    fr:'Ele é muito simpático. → caractéristique durable = ser' },
+  { id:'m3', cat:'choix', type:'choix', prompt:'"Je suis en train de boire" en portugais',
+    choices:['Eu sou bebendo.','Eu estou beber.','Eu bebo sendo.','Eu estou bebendo.'], answer:3,
+    fr:'Eu estou bebendo. → estar + infinitif - R + NDO' },
+  { id:'m4', cat:'choix', type:'choix', prompt:'Pluriel de "fácil" ?',
+    choices:['fácils','fáciles','fáceis','fácels'], answer:2,
+    fr:'fácil → fáceis  (on ajoute EIS car l\'accent n\'est pas sur la dernière syllabe)' },
+  { id:'m5', cat:'choix', type:'choix', prompt:'Pluriel de "um jornal" ?',
+    choices:['uns jornals','uns jornales','uns jornais','uns jornáis'], answer:2,
+    fr:'jornal → jornais  (-al → -ais)' },
+  { id:'m6', cat:'choix', type:'choix', prompt:'"J\'habite ici depuis 2019" — lequel est correct ?',
+    choices:['Moro aqui há 2019.','Moro aqui desde 2019.','Moro aqui faz 2019.','Moro aqui em 2019.'], answer:1,
+    fr:'Desde + date précise → Moro aqui desde 2019.' },
+  { id:'m7', cat:'choix', type:'choix', prompt:'— Você adora chocolate ?\n— ___',
+    choices:['Sim, adora.','Adoro.','Gosto.','Sou.'], answer:1,
+    note:'On répète le verbe conjugué à la 1ère personne.',
+    fr:'Adoro. (on reprend le verbe conjugué)' },
+  { id:'m8', cat:'choix', type:'choix', prompt:'Demonstratif : l\'objet est loin des deux interlocuteurs.',
+    choices:['Este','Esse','Aquele','Neste'], answer:2,
+    fr:'Aquele = celui là-bas (loin des deux)' },
+  { id:'m9', cat:'choix', type:'choix', prompt:'"Je suis au travail" : Eu estou ___ trabalho.',
+    choices:['em o','emo','na','no'], answer:3,
+    fr:'Eu estou no trabalho. → em + o = no' },
+  { id:'m10', cat:'choix', type:'choix', prompt:'Pluriel de "um país" ?',
+    choices:['uns paiss','uns países','uns paísas','uns paísens'], answer:1,
+    fr:'país → países  (-s → -es, accent sur le i)' },
+];
+
+// ─── HELPERS ─────────────────────────────────────────────────────
+function shuffle(a){ const b=[...a]; for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+
+function norm(s){
+  return (s||'').trim().toLowerCase()
+    .replace(/[àâä]/g,'a').replace(/[éèêë]/g,'e').replace(/[îï]/g,'i')
+    .replace(/[ôö]/g,'o').replace(/[ùûü]/g,'u').replace(/ç/g,'c')
+    .replace(/ã/g,'a').replace(/õ/g,'o').replace(/á/g,'a').replace(/í/g,'i').replace(/ó/g,'o').replace(/ú/g,'u').replace(/â/g,'a').replace(/ê/g,'e').replace(/ô/g,'o')
+    .replace(/[.,!?'"«»]/g,'').replace(/\s+/g,' ');
+}
+function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/"/g,'&quot;'); }
+
+function isOk(ex, inputs){
+  if(ex.type==='conj'||ex.type==='trou') return ex.answers.every((a,i)=>norm(inputs[i]||'')===norm(a));
+  if(ex.type==='trad'||ex.type==='word'){
+    const u=norm(inputs[0]||'');
+    if(u===norm(ex.answer)) return true;
+    return (ex.accept||[]).some(a=>norm(a)===u);
+  }
+  if(ex.type==='choix') return inputs[0]===ex.answer;
+  return false;
+}
+
+// ─── STATE ───────────────────────────────────────────────────────
+const DAILY_COUNT = 15;
+let mode = 'day';
+let queue = [], cur = 0, correct = 0, answered = 0;
+let choiceSel = null;
+
+function todayKey(){
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+}
+
+function buildQueue(){
+  let pool;
+  if(mode==='day'){
+    // Seed by date so same 15 questions all day; but on reload within day keep same seed
+    const seed = todayKey().split('-').reduce((a,b)=>a*31+parseInt(b),0);
+    const seeded = seededShuffle(ALL_EX.map((_,i)=>i), seed);
+    pool = seeded.slice(0, DAILY_COUNT);
+  } else if(mode==='all'){
+    pool = shuffle(ALL_EX.map((_,i)=>i));
+  } else {
+    pool = shuffle(ALL_EX.map((_,i)=>i).filter(i=>ALL_EX[i].cat===mode));
+  }
+  queue = pool; cur = 0; correct = 0; answered = 0; choiceSel = null;
+}
+
+function seededShuffle(arr, seed){
+  const a = [...arr];
+  let s = seed;
+  for(let i=a.length-1;i>0;i--){
+    s = (s*1664525+1013904223)&0xffffffff;
+    const j = Math.abs(s)%(i+1);
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function setMode(m, el){
+  mode = m;
+  document.querySelectorAll('.mode-tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  buildQueue();
+  showCurrent();
+}
+
+// ─── UI ──────────────────────────────────────────────────────────
+function updateBar(){
+  const total = queue.length;
+  const pct = total ? (answered/total*100) : 0;
+  document.getElementById('prog').style.width = pct+'%';
+  document.getElementById('prog-label').textContent = `${answered} / ${total}`;
+  document.getElementById('score-badge').textContent = `${correct}/${answered}`;
+}
+
+function showCurrent(){
+  updateBar();
+  const main = document.getElementById('main');
+  if(cur >= queue.length){ showEnd(main); return; }
+  const ex = ALL_EX[queue[cur]];
+  main.innerHTML = dayBanner() + buildCard(ex);
+  const first = main.querySelector('input');
+  if(first) first.focus();
+  main.querySelectorAll('input[data-i]').forEach(inp=>{
+    inp.addEventListener('keydown', e=>{ if(e.key==='Enter') tryCheck(); });
+  });
+}
+
+function dayBanner(){
+  if(mode!=='day') return '';
+  const d = new Date();
+  const days = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months = ['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
+  const label = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+  document.getElementById('h-date').textContent = label;
+  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 15 questions</span></div>`;
+}
+
+function buildCard(ex){
+  const label = {conj:'Conjugaison',trou:'À trous',trad:'Traduction',word:'Vocabulaire',choix:'Choix multiple'}[ex.type];
+  let body = '';
+
+  if(ex.type==='conj'){
+    body += '<div class="conj-rows">';
+    ex.pronouns.forEach((p,i)=>{
+      body += `<div class="conj-row"><span class="pronoun">${p}</span><input data-i="${i}" autocomplete="off" spellcheck="false" placeholder="…"></div>`;
+    });
+    body += '</div>';
+  } else if(ex.type==='trou'){
+    body += '<div class="trou-line">';
+    ex.parts.forEach((part,i)=>{
+      body += part.replace(/\n/g,'<br>');
+      if(i < ex.answers.length)
+        body += `<input class="blank" data-i="${i}" placeholder="${(ex.hints&&ex.hints[i])||'…'}" autocomplete="off" spellcheck="false">`;
+    });
+    body += '</div>';
+  } else if(ex.type==='trad'){
+    body += `<input class="answer-input" data-i="0" placeholder="Ta réponse…" autocomplete="off" spellcheck="false">`;
+  } else if(ex.type==='word'){
+    body += `<div class="word-big">${esc(ex.q)}</div>`;
+    body += `<input class="answer-input" data-i="0" placeholder="Traduction en français…" autocomplete="off" spellcheck="false">`;
+  } else if(ex.type==='choix'){
+    body += '<div class="choices">';
+    ex.choices.forEach((c,i)=>{
+      body += `<button class="choice" onclick="pickChoice(${i})">${esc(c)}</button>`;
+    });
+    body += '</div>';
+  }
+
+  const showQ = ex.type!=='word' && ex.type!=='choix';
+  return `<div class="card" id="the-card">
+    <div class="card-meta"><span>Q ${cur+1}/${queue.length}</span><span class="card-cat">${label}</span></div>
+    <div class="card-prompt">${ex.prompt}</div>
+    ${showQ ? `<div class="card-q">${esc(ex.q||'')}</div>` : ''}
+    ${body}
+    <div class="feedback" id="feedback"></div>
+    <div class="btn-row" id="btn-row">
+      ${ex.type!=='choix' ? `<button class="btn btn-check" onclick="tryCheck()">Vérifier</button>` : ''}
+    </div>
+  </div>`;
+}
+
+function pickChoice(i){
+  choiceSel = i;
+  document.querySelectorAll('.choice').forEach((b,j)=>b.classList.toggle('sel', j===i));
+  const row = document.getElementById('btn-row');
+  if(!row.querySelector('.btn-check'))
+    row.innerHTML = `<button class="btn btn-check" onclick="tryCheck()">Vérifier</button>`;
+}
+
+function tryCheck(){
+  const ex = ALL_EX[queue[cur]];
+  let inputs;
+  if(ex.type==='choix'){
+    if(choiceSel===null) return;
+    inputs = [choiceSel];
+  } else {
+    inputs = [];
+    document.querySelectorAll('#the-card input[data-i]').forEach(el=>inputs[+el.dataset.i]=el.value);
+  }
+
+  const ok = isOk(ex, inputs);
+  if(ok) correct++;
+  answered++;
+  updateBar();
+
+  // style
+  if(ex.type==='conj'||ex.type==='trou'){
+    document.querySelectorAll('#the-card input[data-i]').forEach((el,i)=>{
+      const good = norm(el.value||'')===norm(ex.answers[i]);
+      el.classList.add(good?'ok':'ko'); el.readOnly=true;
+      if(!good){
+        const fix = document.createElement('span'); fix.className='fix';
+        fix.textContent='→ '+ex.answers[i];
+        el.parentNode.insertBefore(fix, el.nextSibling);
+      }
+    });
+  } else if(ex.type==='trad'||ex.type==='word'){
+    const el=document.querySelector('#the-card input[data-i="0"]');
+    el.classList.add(ok?'ok':'ko'); el.readOnly=true;
+  } else if(ex.type==='choix'){
+    document.querySelectorAll('.choice').forEach((b,j)=>{
+      b.disabled=true;
+      if(j===ex.answer) b.classList.add('right');
+      else if(j===choiceSel) b.classList.add('wrong-pick');
+    });
+    choiceSel=null;
+  }
+
+  // feedback
+  const fb = document.getElementById('feedback');
+  fb.className='feedback show '+(ok?'ok':'ko');
+  let msg = ok ? '✓ Parfait !' : '✗ '+(ex.type!=='conj'&&ex.type!=='trou'?'Réponse : <strong>'+(ex.type==='choix'?ex.choices[ex.answer]:ex.answer)+'</strong>':'Quelques erreurs.');
+  if(ex.fr) msg += `<div class="fr-trans">🇫🇷 ${ex.fr}</div>`;
+  if(ex.note) msg += `<div class="note-line">📝 ${ex.note}</div>`;
+  fb.innerHTML = msg;
+  document.getElementById('the-card').classList.add(ok?'state-ok':'state-ko');
+  document.getElementById('btn-row').innerHTML = `<button class="btn btn-next" onclick="nextQ()">Question suivante →</button>`;
+}
+
+function nextQ(){ cur++; showCurrent(); }
+
+function showEnd(main){
+  const pct = queue.length ? Math.round(correct/queue.length*100) : 0;
+  const emoji = pct===100?'🏆':pct>=70?'💪':pct>=40?'📚':'🔄';
+  main.innerHTML = `<div class="end-screen">
+    <div class="end-big">${emoji}</div>
+    <div class="end-big" style="font-size:2.5rem;margin-top:8px">${correct}/${queue.length}</div>
+    <div class="end-sub">${pct}% de réussite</div>
+    <div class="end-msg">${pct===100?'Impeccável! Tu maîtrises tout ça 🎉':pct>=70?'Muito bem! Continue comme ça, boa sorte!':'Revois les points en rouge et recommence — você consegue!'}</div>
+    <br>
+    <button class="btn-restart" onclick="restart()">🔀 Recommencer (mélangé)</button><br>
+    ${mode==='day'?`<button class="btn-restart2" onclick="setMode('all',document.getElementById('tab-all'))">Tout faire (${ALL_EX.length} questions)</button>`:''}
+  </div>`;
+}
+
+function restart(){ buildQueue(); cur=0; correct=0; answered=0; showCurrent(); }
+
+// ─── BOOT ────────────────────────────────────────────────────────
+document.getElementById('h-date').textContent = (()=>{
+  const d=new Date();
+  const days=['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
+  const months=['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
+  return `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
+})();
+
+buildQueue();
+showCurrent();
+</script>
+</body>
+</html>

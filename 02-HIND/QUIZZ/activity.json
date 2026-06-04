@@ -1,0 +1,23 @@
+{"quizlist":[
+  
+	{
+	"question":"Quelle est ma date de naissance ?",
+	"option1":"6 Juillet 1991",
+	"option2":"7 Mai 1990",
+	"option3":"3 Novembre 1991"
+	},
+	{
+	"question":"Quelle est notre signe de raliement ?",
+	"option1":"Ya que toi que jt'aime",
+	"option2":"A la vie à la muerte",
+	"option3":"Antwerp ?"
+	},
+	{
+	"question":"Si dans mon panier j'ai des pommes, avoir un accident risquerai de faire ?",
+	"option1":"De la compote, voir même du cidre !",
+	"option2":"De la weed",
+	"option3":"Du CBD "
+	}
+
+]
+}

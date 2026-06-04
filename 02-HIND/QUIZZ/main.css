@@ -1,0 +1,145 @@
+html, body {
+	margin: 0;
+	padding: 0;
+  background-color: #121212;
+	  font-family: Arial, Helvetica, sans-serif;
+	    }
+
+#navContent{
+margin:auto;	
+width:800px;
+height:400px;
+position:relative;
+overflow:hidden;
+}
+
+.textP {
+margin:auto;	
+width:600px;
+height:400px;
+position:relative;
+overflow:hidden;
+font-size:20px;
+color:#FFF;
+text-align: center;
+float: none;
+
+
+}
+
+#Hind{
+	width: 150px;
+	float: right;
+	margin: 0 auto;
+}
+
+
+
+#game1{
+margin:auto;
+width:800px;
+height:400px;
+right:0px;
+position:absolute;
+}
+
+#game2{
+margin:auto;	
+width:800px;
+height:400px;
+right:-800px;
+position:absolute;
+} 
+
+
+
+ 
+.questionText{
+font-size:27px;
+color:#FFF;
+}
+
+.option{width:400px;
+height:30px;
+margin:15px;
+font-size:18px;
+color:#FFFFFF; 
+padding:2px;
+padding-left:10px;
+padding-top: 10px;
+border: 2px solid white;
+cursor:pointer;
+background-color:#3399FF;
+}
+
+.option:hover{
+border:#000000 solid 2px;
+color:#000000;
+}
+
+
+		
+
+
+
+
+
+
+
+ 
+
+#topbar{
+height:50px;
+margin:auto;
+margin-top:50px;
+color:#FFF;
+font-size:36px;
+font-family:Arial, Helvetica, sans-serif;
+width:800px;
+border-bottom:solid white 1px;
+float:left;
+}
+ 
+.spacer{
+height:30px;
+}
+
+ 
+
+
+
+
+.feedback1{
+width:150px;
+padding:5px;
+font-size:30px;
+color:#FFFFCC;
+background-color:#009900;
+font-family:Arial, Helvetica, sans-serif;
+text-align:center;
+margin-left: 15px;
+}
+
+.feedback2{
+width:150px;
+padding:5px;
+font-size:30px;
+color:#FFFFCC;
+background-color:#CC3300;
+font-family:Arial, Helvetica, sans-serif;
+text-align:center;
+margin-left: 15px;
+}
+ 
+ 
+@media screen and (max-width:800px) {
+	#topbar{margin-left:1%;margin-right:1%;	width:96%;}
+	#navContent{margin:1%;	width:98%;}
+	#game1{margin:1%;	width:98%;}
+	#game2{margin:1%;	width:98%;}
+
+
+}
+@media screen and (max-width:460px) {
+	.option{width:80%;margin:5%;}
+}

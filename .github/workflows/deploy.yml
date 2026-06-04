@@ -19,5 +19,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./
           server-dir: /www/
-          include: |
-            quiz.html
+          exclude: |
+            .git/**
+            .github/**
+            README.md

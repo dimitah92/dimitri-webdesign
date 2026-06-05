@@ -168,7 +168,7 @@ header {
 
 <div class="mode-bar">
   <button class="mode-tab active" id="tab-day"  onclick="setMode('day',this)">📅 15 du jour</button>
-  <button class="mode-tab" id="tab-all"  onclick="setMode('all',this)">🌐 Tout (55)</button>
+  <button class="mode-tab" id="tab-all"  onclick="setMode('all',this)">🌐 Tout</button>
   <button class="mode-tab" id="tab-conj" onclick="setMode('conjugaison',this)">📝 Conjugaison</button>
   <button class="mode-tab" id="tab-voc"  onclick="setMode('vocabulaire',this)">📦 Vocabulaire</button>
   <button class="mode-tab" id="tab-trad" onclick="setMode('traduction',this)">🔄 Traduction</button>
@@ -354,6 +354,313 @@ const ALL_EX = [
   { id:'m10', cat:'choix', type:'choix', prompt:'Pluriel de "um país" ?',
     choices:['uns paiss','uns países','uns paísas','uns paísens'], answer:1,
     fr:'país → países  (-s → -es, accent sur le i)' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 1 : verbo SER ══
+  { id:'g1_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ser</em> (affirmative)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['sou','é','somos','são'],
+    fr:'suis / est / sommes / sont' },
+
+  { id:'g1_t1', cat:'trou', type:'trou', prompt:'ser — complète (U1) :',
+    parts:['A rosa ',' uma flor. Eu e a Carla ',' amigas. Eles ',' socialistas.'],
+    answers:['é','somos','são'], hints:['3ª sing.','1ª pl.','3ª pl.'],
+    fr:'La rose est une fleur. Carla et moi sommes amies. Ils sont socialistes.' },
+
+  { id:'g1_t2', cat:'trou', type:'trou', prompt:'ser — complète (U1) :',
+    parts:['O dicionário ',' do professor. Brasília ',' no Brasil. Hoje ',' sábado.'],
+    answers:['é','é','é'], hints:['possession','localisation fixe','jour'],
+    fr:'Le dictionnaire est au professeur. Brasília est au Brésil. Aujourd\'hui c\'est samedi.' },
+
+  { id:'g1_q1', cat:'choix', type:'choix', prompt:'ser — choisir la bonne forme :',
+    q:'Você e o Antônio ___ amigos.',
+    choices:['sou','é','somos','são'], answer:3,
+    fr:'Você e o Antônio são amigos. (você + ele = eles → são)' },
+
+  { id:'g1_q2', cat:'choix', type:'choix', prompt:'ser — quelle utilisation ?',
+    q:'"Sou professor de português" — ser exprime ici :',
+    choices:['une localisation','une profession','un état temporaire','la météo'], answer:1,
+    fr:'ser + profession → Sou professor de português.' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 2 : verbo ESTAR ══
+  { id:'g2_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>estar</em>',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['estou','está','estamos','estão'],
+    fr:'suis / est / sommes / sont (temporaire/localisation)' },
+
+  { id:'g2_t1', cat:'trou', type:'trou', prompt:'estar — complète (U2) :',
+    parts:['O livro ',' em cima da mesa. Hoje ',' muito calor lá fora. Eles ',' sentados à mesa.'],
+    answers:['está','está','estão'], hints:['localisation','météo','état temporaire'],
+    fr:'Le livre est sur la table. Il fait très chaud dehors. Ils sont assis à table.' },
+
+  { id:'g2_t2', cat:'trou', type:'trou', prompt:'estar com — complète (U2) :',
+    parts:['Estou com ','  , mas não estou com ','  . Você ',' com sono?'],
+    answers:['sede','fome','está'], hints:['soif','faim','estar'],
+    fr:'J\'ai soif mais je n\'ai pas faim. Tu as sommeil ?' },
+
+  { id:'g2_q1', cat:'choix', type:'choix', prompt:'estar — choisir la bonne phrase :',
+    q:'"Le Pedro est en vacances au Pantanal" en portugais :',
+    choices:['O Pedro é de férias no Pantanal.','O Pedro está de férias no Pantanal.','O Pedro tem férias no Pantanal.','O Pedro fica de férias no Pantanal.'], answer:1,
+    fr:'O Pedro está de férias no Pantanal. → état temporaire = estar' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 3 : SER vs ESTAR ══
+  { id:'g3_t1', cat:'trou', type:'trou', prompt:'ser ou estar ? (U3) :',
+    parts:['O quadro da sala ',' limpo. O banco ',' fechado. Meus primos ',' do Norte do Brasil.'],
+    answers:['está','está','são'], hints:['résultat d\'action','état temporaire','origine'],
+    fr:'Le tableau de la salle est propre. La banque est fermée. Mes cousins sont du Nord du Brésil.' },
+
+  { id:'g3_t2', cat:'trou', type:'trou', prompt:'ser ou estar ? (U3) :',
+    parts:['A sopa ',' quente. A água do mar ',' salgada. Hoje estou cansado porque ',' trabalhei muito.'],
+    answers:['está','é',''], hints:['temporaire (on vérifie)','permanent (on sait)','—'],
+    fr:'La soupe est chaude (en ce moment). L\'eau de mer est salée (toujours). Je suis fatigué car j\'ai beaucoup travaillé.' },
+
+  { id:'g3_q1', cat:'choix', type:'choix', prompt:'ser ou estar + adjectif ?',
+    q:'"Le vêtement est déchiré (parce que quelqu\'un l\'a déchiré)" :',
+    choices:['O vestido é rasgado.','O vestido está rasgado.','O vestido fica rasgado.','O vestido tem rasgado.'], answer:1,
+    fr:'O vestido está rasgado. → résultat d\'une action = estar' },
+
+  { id:'g3_q2', cat:'choix', type:'choix', prompt:'ser ou estar + adjectif ?',
+    q:'"Il est intelligent" (de nature) :',
+    choices:['Ele está inteligente.','Ele fica inteligente.','Ele é inteligente.','Ele tem inteligente.'], answer:2,
+    fr:'Ele é inteligente. → caractéristique générale = ser' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 4 : ESTAR + GERÚNDIO ══
+  { id:'g4_t1', cat:'trou', type:'trou', prompt:'Gérondif — forme correcte :',
+    parts:['falar → ','   / comer → ','   / abrir → ','.'],
+    answers:['falando','comendo','abrindo'], hints:['-ar+ndo','-er+ndo','-ir+ndo'],
+    fr:'falar → falando / comer → comendo / abrir → abrindo' },
+
+  { id:'g4_t2', cat:'trou', type:'trou', prompt:'estar + gérondif — complète (U4) :',
+    parts:['Ela ',' lendo. Eles ',' trabalhando. O Carlos ',' pondo o carro na garagem.'],
+    answers:['está','estão','está'], hints:['3ª sing.','3ª pl.','3ª sing.'],
+    fr:'Elle est en train de lire. Ils sont en train de travailler. Carlos est en train de garer la voiture.' },
+
+  { id:'g4_q1', cat:'choix', type:'choix', prompt:'Gérondif de "pôr" :',
+    q:'"Je suis en train de mettre le café" :',
+    choices:['Estou pôrendo o café.','Estou porindo o café.','Estou pondo o café.','Estou põendo o café.'], answer:2,
+    fr:'pôr → pondo (irrégulier) → Estou pondo o café.' },
+
+  { id:'g4_q2', cat:'choix', type:'choix', prompt:'estar + gérondif — lequel est correct ?',
+    q:'"Ils sont en train de dormir" :',
+    choices:['Eles estão dormindo.','Eles são dormindo.','Eles ficam dormindo.','Eles têm dormindo.'], answer:0,
+    fr:'Eles estão dormindo. → dormir - r + ndo = dormindo' },
+
+  { id:'g4_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (gérondif) :',
+    q:'Je suis en train d\'étudier le portugais.',
+    answer:'estou estudando portugues',
+    accept:['eu estou estudando portugues','estou estudando o portugues'],
+    fr:'Estou estudando português.' },
+
+  { id:'g4_trad2', cat:'traduction', type:'trad', prompt:'Traduis en portugais (gérondif) :',
+    q:'Elle est en train de faire le déjeuner.',
+    answer:'ela esta fazendo o almoco',
+    accept:['ela está fazendo o almoço','ela esta fazendo almoco'],
+    fr:'Ela está fazendo o almoço.' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 5 : verbes réguliers en -AR ══
+  { id:'g5_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>falar</em> (parler)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['falo','fala','falamos','falam'],
+    fr:'parle / parle / parlons / parlent' },
+
+  { id:'g5_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>morar</em> (habiter)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['moro','mora','moramos','moram'],
+    fr:'habite / habite / habitons / habitent' },
+
+  { id:'g5_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>trabalhar</em> (travailler)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['trabalho','trabalha','trabalhamos','trabalham'],
+    fr:'travaille / travaille / travaillons / travaillent' },
+
+  { id:'g5_t1', cat:'trou', type:'trou', prompt:'Verbes en -ar — complète (U5) :',
+    parts:['Eu me ',' sempre às 8h. Normalmente ',' às 13h. O Sr. Ramos ',' o jornal todos os dias.'],
+    answers:['levanto','almoçamos','compra'], hints:['levantar','almoçar','comprar'],
+    fr:'Je me lève toujours à 8h. Normalement nous déjeunons à 13h. M. Ramos achète le journal tous les jours.' },
+
+  { id:'g5_q1', cat:'choix', type:'choix', prompt:'Verbe en -ar — forme correcte :',
+    q:'"pagar / vocês" → la bonne forme est :',
+    choices:['pagam','pagamos','paga','pago'], answer:0,
+    fr:'Vocês pagam. → pagar : eu pago / você paga / nós pagamos / eles pagam' },
+
+  { id:'g5_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbe -ar) :',
+    q:'Les banques ferment à 17h pour le public.',
+    answer:'os bancos fecham as 17h para o publico',
+    accept:['no brasil os bancos fecham as 17h para o publico'],
+    fr:'No Brasil, os bancos fecham às 17h para o público.' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 6 : verbes réguliers en -ER ══
+  { id:'g6_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>comer</em> (manger)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['como','come','comemos','comem'],
+    fr:'mange / mange / mangeons / mangent' },
+
+  { id:'g6_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>beber</em> (boire)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['bebo','bebe','bebemos','bebem'],
+    fr:'bois / boit / buvons / boivent' },
+
+  { id:'g6_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conhecer</em> (1ère pers. irrégulière)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['conheço','conhece','conhecemos','conhecem'],
+    fr:'connais / connaît / connaissons / connaissent' },
+
+  { id:'g6_t1', cat:'trou', type:'trou', prompt:'Verbes en -er — complète (U6) :',
+    parts:['As crianças ',' linguas com facilidade. Eles ',' aos pais todas as semanas. No Nordeste do Brasil ',' pouco.'],
+    answers:['aprendem','escrevem','chove'], hints:['aprender','escrever','chover'],
+    fr:'Les enfants apprennent les langues facilement. Ils écrivent à leurs parents toutes les semaines. Dans le Nordeste il pleut peu.' },
+
+  { id:'g6_q1', cat:'choix', type:'choix', prompt:'1ère personne irrégulière en -er :',
+    q:'"esquecer" à la 1ère personne du singulier :',
+    choices:['esqueco','esqueço','esquezo','esquecio'], answer:1,
+    fr:'eu esqueço (esquecer → 1ère pers. : c → ç devant o)' },
+
+  { id:'g6_trad1', cat:'traduction', type:'trad', prompt:'Traduis en français :',
+    q:'Eu bebo café de manhã, mas ela bebe chá.',
+    answer:'je bois du café le matin mais elle boit du thé',
+    accept:['je bois un café le matin mais elle boit du thé'],
+    fr:'Je bois du café le matin, mais elle boit du thé.' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 7 : verbes irréguliers en -ER ══
+  { id:'g7_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>fazer</em> (faire)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['faço','faz','fazemos','fazem'],
+    fr:'fais / fait / faisons / font' },
+
+  { id:'g7_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>poder</em> (pouvoir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['posso','pode','podemos','podem'],
+    fr:'peux / peut / pouvons / peuvent' },
+
+  { id:'g7_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>querer</em> (vouloir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['quero','quer','queremos','querem'],
+    fr:'veux / veut / voulons / veulent' },
+
+  { id:'g7_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>saber</em> (savoir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['sei','sabe','sabemos','sabem'],
+    fr:'sais / sait / savons / savent' },
+
+  { id:'g7_c5', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ver</em> (voir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['vejo','vê','vemos','veem'],
+    fr:'vois / voit / voyons / voient' },
+
+  { id:'g7_c6', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ler</em> (lire)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['leio','lê','lemos','leem'],
+    fr:'lis / lit / lisons / lisent' },
+
+  { id:'g7_t1', cat:'trou', type:'trou', prompt:'Verbes irréguliers — complète (U7) :',
+    parts:['Não ',' sair, porque tenho que estudar. Ela ',' falar muitas línguas. Eu ',' aniversário em abril.'],
+    answers:['posso','sabe','faço'], hints:['poder','saber','fazer'],
+    fr:'Je ne peux pas sortir, je dois étudier. Elle sait parler beaucoup de langues. Mon anniversaire est en avril.' },
+
+  { id:'g7_t2', cat:'trou', type:'trou', prompt:'Verbes irréguliers — complète (U7) :',
+    parts:['Meus filhos não ',' televisão aos domingos. Às vezes ',' o ônibus das 8h. Eu ',' aniversário em abril.'],
+    answers:['veem','perco','faço'], hints:['ver','perder','fazer'],
+    fr:'Mes fils ne regardent pas la télé le dimanche. Je rate parfois le bus de 8h. Mon anniversaire est en avril.' },
+
+  { id:'g7_q1', cat:'choix', type:'choix', prompt:'Verbe irrégulier — forme correcte :',
+    q:'"pôr" à la 1ère personne du singulier :',
+    choices:['poo','põo','ponho','poro'], answer:2,
+    fr:'eu ponho (pôr est très irrégulier : ponho / põe / pomos / põem)' },
+
+  { id:'g7_q2', cat:'choix', type:'choix', prompt:'Verbe irrégulier — forme correcte :',
+    q:'"trazer" à la 1ère personne :',
+    choices:['trazo','trago','traio','trego'], answer:1,
+    fr:'eu trago (trazer → trago / traz / trazemos / trazem)' },
+
+  { id:'g7_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbes irrég.) :',
+    q:'Je ne peux pas sortir ce soir.',
+    answer:'não posso sair hoje a noite',
+    accept:['eu não posso sair hoje à noite','não posso sair esta noite'],
+    fr:'Não posso sair hoje à noite.' },
+
+  { id:'g7_trad2', cat:'traduction', type:'trad', prompt:'Traduis en français :',
+    q:'Vocês sabem a que horas é o filme?',
+    answer:'vous savez à quelle heure est le film',
+    accept:['vous savez à quelle heure commence le film','tu sais à quelle heure est le film'],
+    fr:'Vous savez à quelle heure est le film ?' },
+
+  // ══ GRAMATICA ATIVA — UNIDADE 8 : verbes réguliers en -IR ══
+  { id:'g8_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>abrir</em> (ouvrir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['abro','abre','abrimos','abrem'],
+    fr:'ouvre / ouvre / ouvrons / ouvrent' },
+
+  { id:'g8_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>preferir</em> (préférer) — 1ère pers. irrégulière',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['prefiro','prefere','preferimos','preferem'],
+    fr:'préfère / préfère / préférons / préfèrent' },
+
+  { id:'g8_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conseguir</em> (réussir à)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['consigo','consegue','conseguimos','conseguem'],
+    fr:'réussis / réussit / réussissons / réussissent' },
+
+  { id:'g8_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>sentir</em> (sentir/se sentir)',
+    pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
+    answers:['sinto','sente','sentimos','sentem'],
+    fr:'sens / sent / sentons / sentent' },
+
+  { id:'g8_t1', cat:'trou', type:'trou', prompt:'Verbes en -ir — complète (U8) :',
+    parts:['As lojas ',' às 10h. Eles ',' ir ao cinema. Não ',' abrir esta janela.'],
+    answers:['abrem','preferem','consigo'], hints:['abrir','preferir','conseguir (eu)'],
+    fr:'Les magasins ouvrent à 10h. Ils préfèrent aller au cinéma. Je n\'arrive pas à ouvrir cette fenêtre.' },
+
+  { id:'g8_t2', cat:'trou', type:'trou', prompt:'Verbes en -ir — complète (U8) :',
+    parts:['O professor ',' os exercícios amanhã. Nós ',' o texto para português. — Você se ',' bem?\n— Não, eu me ',' mal.'],
+    answers:['corrige','traduzimos','sente','sinto'], hints:['corrigir','traduzir','sentir (você)','sentir (eu)'],
+    fr:'Le prof corrige les exercices demain. Nous traduisons le texte en portugais. — Tu te sens bien ? — Non, je me sens mal.' },
+
+  { id:'g8_q1', cat:'choix', type:'choix', prompt:'1ère pers. irrégulière en -ir :',
+    q:'"vestir" à la 1ère personne du singulier :',
+    choices:['vesto','visto','vestio','vistio'], answer:1,
+    fr:'eu visto (vestir → 1ère pers. : e → i → visto)' },
+
+  { id:'g8_q2', cat:'choix', type:'choix', prompt:'1ère pers. irrégulière en -ir :',
+    q:'"dirigir" à la 1ère personne du singulier :',
+    choices:['dirigo','dirijo','diriijo','dirigo'], answer:1,
+    fr:'eu dirijo (dirigir → g → j devant o → dirijo)' },
+
+  { id:'g8_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbe -ir) :',
+    q:'Je préfère rester à la maison.',
+    answer:'eu prefiro ficar em casa',
+    accept:['prefiro ficar em casa'],
+    fr:'Eu prefiro ficar em casa.' },
+
+  { id:'g8_trad2', cat:'traduction', type:'trad', prompt:'Traduis en français :',
+    q:'Não consigo abrir esta janela.',
+    answer:'je n\'arrive pas à ouvrir cette fenêtre',
+    accept:['je ne réussis pas à ouvrir cette fenêtre','je n arrive pas a ouvrir cette fenetre'],
+    fr:'Je n\'arrive pas à ouvrir cette fenêtre.' },
+
+  // ══ VOCABULAIRE NOUVEAU (U5-U8) ══
+  { id:'gv1', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'levantar',
+    answer:'se lever', accept:['lever'], fr:'levantar = se lever' },
+  { id:'gv2', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'almoçar',
+    answer:'déjeuner', fr:'almoçar = déjeuner' },
+  { id:'gv3', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'jantar',
+    answer:'dîner', fr:'jantar = dîner' },
+  { id:'gv4', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'chover',
+    answer:'pleuvoir', fr:'chover = pleuvoir' },
+  { id:'gv5', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'esquecer',
+    answer:'oublier', fr:'esquecer = oublier' },
+  { id:'gv6', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'trazer',
+    answer:'apporter', accept:['amener'], fr:'trazer = apporter / amener' },
+  { id:'gv7', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'perder',
+    answer:'perdre', accept:['rater'], fr:'perder = perdre / rater' },
+  { id:'gv8', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'nunca',
+    answer:'jamais', fr:'nunca = jamais' },
+  { id:'gv9', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'sempre',
+    answer:'toujours', fr:'sempre = toujours' },
+  { id:'gv10', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'às vezes',
+    answer:'parfois', accept:['quelquefois','des fois'], fr:'às vezes = parfois' },
+  { id:'gv11', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'raramente',
+    answer:'rarement', fr:'raramente = rarement' },
+  { id:'gv12', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'todos os dias',
+    answer:'tous les jours', fr:'todos os dias = tous les jours' },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────

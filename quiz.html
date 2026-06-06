@@ -112,6 +112,30 @@ header {
 .answer-input.ok { border-color: var(--green); color: var(--green); }
 .answer-input.ko { border-color: var(--red); text-decoration: line-through; opacity: 0.6; }
 
+/* Strikethrough for wrong answers — replaces the input */
+.strike-wrong {
+  display: inline-block;
+  color: var(--red);
+  text-decoration: line-through;
+  opacity: 0.55;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 3px 6px;
+  background: rgba(139,32,32,0.07);
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.strike-block {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--red);
+  border-radius: 0;
+  margin-bottom: 10px;
+  font-size: 0.88rem;
+}
+
 /* CHOICES */
 .choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
 .choice {
@@ -195,7 +219,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v8 · 06/06/2026</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v9 · 06/06/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>
@@ -961,16 +985,34 @@ function tryCheck(){
   if(ex.type==='conj'||ex.type==='trou'){
     document.querySelectorAll('#the-card input[data-i]').forEach((el,i)=>{
       const good = norm(el.value||'')===norm(ex.answers[i]);
-      el.classList.add(good?'ok':'ko'); el.readOnly=true;
-      if(!good){
-        const fix = document.createElement('span'); fix.className='fix';
-        fix.textContent='→ '+ex.answers[i];
-        el.parentNode.insertBefore(fix, el.nextSibling);
+      el.readOnly=true;
+      if(good){
+        el.classList.add('ok');
+      } else {
+        // Replace input with a struck-through span + correct answer
+        const wrapper = el.parentNode;
+        const wrongVal = el.value || '—';
+        const strike = document.createElement('span');
+        strike.className = 'strike-wrong';
+        strike.textContent = wrongVal;
+        wrapper.replaceChild(strike, el);
+        const fix = document.createElement('span');
+        fix.className = 'fix';
+        fix.textContent = '→ ' + ex.answers[i];
+        wrapper.appendChild(fix);
       }
     });
   } else if(ex.type==='trad'||ex.type==='word'){
     const el=document.querySelector('#the-card input[data-i="0"]');
-    el.classList.add(ok?'ok':'ko'); el.readOnly=true;
+    if(ok){
+      el.classList.add('ok'); el.readOnly=true;
+    } else {
+      const wrongVal = el.value || '—';
+      const strike = document.createElement('span');
+      strike.className = 'strike-wrong strike-block';
+      strike.textContent = wrongVal;
+      el.parentNode.replaceChild(strike, el);
+    }
   } else if(ex.type==='choix'){
     document.querySelectorAll('.choice').forEach((b,j)=>{
       b.disabled=true;

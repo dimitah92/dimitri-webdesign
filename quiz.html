@@ -146,6 +146,45 @@ header {
 .end-msg { font-size: 0.82rem; color: var(--ink3); margin-top: 10px; line-height: 1.7; }
 .btn-restart { margin-top: 20px; display: inline-block; background: var(--ink); color: var(--bg); padding: 10px 24px; font-family: 'DM Mono', monospace; font-size: 0.82rem; cursor: pointer; border: none; }
 .btn-restart2 { margin-top: 10px; display: inline-block; background: transparent; color: var(--ink); border: 1px solid var(--border); padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 0.78rem; cursor: pointer; }
+
+@media (max-width: 600px) {
+  body { font-size: 14px; }
+  header { padding: 12px 14px 10px; gap: 10px; }
+  .h-flag { font-size: 1.3rem; }
+  .h-title { font-size: 1rem; }
+  .score-badge { font-size: 1rem; padding: 2px 9px; }
+  .prog-wrap { padding: 7px 12px; gap: 8px; }
+  .mode-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .mode-tab { font-size: 0.62rem; padding: 8px 4px; white-space: nowrap; flex-shrink: 0; min-width: 0; }
+  .main { padding: 10px 10px 60px; }
+  .card { padding: 14px 12px 12px; }
+  .card-prompt { font-size: 0.9rem; margin-bottom: 10px; }
+  .card-q { font-size: 0.88rem; margin-bottom: 10px; }
+  .card-meta { font-size: 0.6rem; }
+  .word-big { font-size: 1.55rem; margin-bottom: 12px; }
+  .conj-rows { gap: 10px; }
+  .conj-row { gap: 6px; }
+  .pronoun { min-width: 52px; font-size: 0.73rem; }
+  .conj-input { font-size: 0.84rem; padding: 5px 4px; }
+  .fix { font-size: 0.72rem; }
+  .trou-line { font-size: 0.88rem; line-height: 3.2; }
+  .blank { width: 78px; font-size: 0.8rem; }
+  .answer-input { padding: 12px 10px; font-size: 0.88rem; margin-bottom: 8px; }
+  .choices { gap: 9px; }
+  .choice { padding: 12px 11px; font-size: 0.83rem; }
+  .btn { padding: 12px 16px; font-size: 0.8rem; width: 100%; text-align: center; }
+  .btn-row { flex-direction: column; gap: 6px; }
+  .feedback { font-size: 0.8rem; padding: 10px 11px; }
+  .fr-trans { font-size: 0.84rem; }
+  .note-line { font-size: 0.72rem; }
+  .day-banner { font-size: 0.73rem; padding: 8px 12px; flex-wrap: wrap; gap: 6px; }
+  .day-banner button { padding: 5px 10px; font-size: 0.68rem; }
+  .end-screen { padding: 24px 12px 50px; }
+  .end-big { font-size: 2.5rem; }
+  .end-sub { font-size: 0.95rem; }
+  .btn-restart, .btn-restart2 { width: 100%; text-align: center; display: block; padding: 12px 16px; box-sizing: border-box; }
+  .btn-restart2 { margin-top: 8px; }
+}
 </style>
 </head>
 <body>
@@ -156,7 +195,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v4 · 06/06/2025</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v7 · 06/06/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>
@@ -183,16 +222,16 @@ const ALL_EX = [
   // CONJUGAISON (Eu / Você / Nós / Vocês — pas de Tu)
   { id:'c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>chamar-se</em>',
     pronouns:['Eu','Você','Nós','Vocês'], answers:['me chamo','se chama','nos chamamos','se chamam'],
-    fr:'me appelle / s\'appelle / nous appelons / s\'appellent' },
+    fr:'falar = parler ✦ me appelle / s\'appelle / nous appelons / s\'appellent' },
   { id:'c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>acordar-se</em>',
     pronouns:['Eu','Você','Nós','Vocês'], answers:['me acordo','se acorda','nos acordamos','se acordam'],
-    fr:'me réveille / se réveille / nous réveillons / se réveillent' },
+    fr:'acordar-se = se réveiller ✦ me réveille / se réveille / nous réveillons / se réveillent' },
   { id:'c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>lembrar-se</em>',
     pronouns:['Eu','Você','Nós','Vocês'], answers:['me lembro','se lembra','nos lembramos','se lembram'],
-    fr:'me souviens / se souvient / nous souvenons / se souviennent' },
+    fr:'lembrar-se = se souvenir ✦ me souviens / se souvient / nous souvenons / se souviennent' },
   { id:'c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>enganar-se</em>',
     pronouns:['Eu','Você','Nós','Vocês'], answers:['me engano','se engana','nos enganamos','se enganam'],
-    fr:'me trompe / se trompe / nous trompons / se trompent' },
+    fr:'enganar-se = se tromper ✦ me trompe / se trompe / nous trompons / se trompent' },
   { id:'c5', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conhecer</em>',
     pronouns:['Eu','Você','Nós','Vocês'], answers:['conheço','conhece','conhecemos','conhecem'],
     fr:'connais / connaît / connaissons / connaissent' },
@@ -312,7 +351,7 @@ const ALL_EX = [
   { id:'v15', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'menor',          answer:'plus petit', accept:['le plus petit'], fr:'menor = plus petit' },
   { id:'v16', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'violão',         answer:'guitare acoustique', accept:['guitare'], fr:'violão = guitare acoustique' },
   { id:'v17', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'sonhar com',     answer:'rêver de', accept:['rever de'], fr:'sonhar com = rêver de' },
-  { id:'v18', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'estadunidense',  answer:'américain', accept:['américaine','americain'], fr:'estadunidense = américain(e) des États-Unis' },
+  { id:'v18', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'estadunidense',  answer:'américain', accept:['américaine','americain'], fr:'estadunidense = américain(e) des États-Unis (plus précis que americano)' },
   // Nouveau cesto 03/06
   { id:'v19', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'agradável',      answer:'agréable', fr:'agradável = agréable' },
   { id:'v20', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'roupa',          answer:'vêtement', accept:['vêtements','habit','habits'], fr:'roupa = vêtement(s)' },
@@ -326,38 +365,38 @@ const ALL_EX = [
   // CHOIX MULTIPLE
   { id:'m1', cat:'choix', type:'choix', prompt:'Ser ou Estar ? Elle est (en ce moment) fatiguée.',
     choices:['Ela é cansada.','Ela está cansada.','Ela fica cansada.','Ela tem cansada.'], answer:1,
-    fr:'Ela está cansada. → état ponctuel = estar' },
+    fr:'estar = être (état temporaire) ✦ Ela está cansada. = Elle est fatiguée (en ce moment).' },
   { id:'m2', cat:'choix', type:'choix', prompt:'Ser ou Estar ? Il est (de nature) très sympa.',
     choices:['Ele está muito simpático.','Ele é muito simpático.','Ele fica simpático.','Ele tem simpático.'], answer:1,
-    fr:'Ele é muito simpático. → caractéristique durable = ser' },
+    fr:'ser = être (caractéristique durable) ✦ Ele é muito simpático. = Il est très sympa (de nature).' },
   { id:'m3', cat:'choix', type:'choix', prompt:'"Je suis en train de boire" en portugais',
     choices:['Eu sou bebendo.','Eu estou beber.','Eu bebo sendo.','Eu estou bebendo.'], answer:3,
     fr:'Eu estou bebendo. → estar + infinitif - R + NDO' },
   { id:'m4', cat:'choix', type:'choix', prompt:'Pluriel de "fácil" ?',
     choices:['fácils','fáciles','fáceis','fácels'], answer:2,
-    fr:'fácil → fáceis  (on ajoute EIS car l\'accent n\'est pas sur la dernière syllabe)' },
+    fr:'fácil = facile ✦ fácil → fáceis (EIS car accent pas sur la dernière syllabe)' },
   { id:'m5', cat:'choix', type:'choix', prompt:'Pluriel de "um jornal" ?',
     choices:['uns jornals','uns jornales','uns jornais','uns jornáis'], answer:2,
-    fr:'jornal → jornais  (-al → -ais)' },
+    fr:'jornal = journal ✦ jornal → jornais (-al → -ais)' },
   { id:'m6', cat:'choix', type:'choix', prompt:'"J\'habite ici depuis 2019" — lequel est correct ?',
     choices:['Moro aqui há 2019.','Moro aqui desde 2019.','Moro aqui faz 2019.','Moro aqui em 2019.'], answer:1,
-    fr:'Desde + date précise → Moro aqui desde 2019.' },
+    fr:'desde = depuis (moment précis) / há = depuis (durée) ✦ Moro aqui desde 2019. = J\'habite ici depuis 2019.' },
   { id:'m7', cat:'choix', type:'choix', prompt:'— Você adora chocolate ?\n— ___',
     choices:['Sim, adora.','Adoro.','Gosto.','Sou.'], answer:1,
     note:'On répète le verbe conjugué à la 1ère personne.',
-    fr:'Adoro. (on reprend le verbe conjugué)' },
+    fr:'adorar = adorer ✦ Adoro. = J\'adore. (on reprend le verbe conjugué à la 1ère personne)' },
   { id:'m8', cat:'choix', type:'choix', prompt:'Demonstratif : l\'objet est loin des deux interlocuteurs.',
     choices:['Este','Esse','Aquele','Neste'], answer:2,
-    fr:'Aquele = celui là-bas (loin des deux)' },
+    fr:'este = celui-ci (près) / esse = celui-là (un peu loin) / aquele = celui là-bas (loin des deux)' },
   { id:'m9', cat:'choix', type:'choix', prompt:'"Je suis au travail" : Eu estou ___ trabalho.',
     choices:['em o','emo','na','no'], answer:3,
-    fr:'Eu estou no trabalho. → em + o = no' },
+    fr:'trabalho = travail ✦ Eu estou no trabalho. = Je suis au travail. (em + o = no)' },
   { id:'m10', cat:'choix', type:'choix', prompt:'Pluriel de "um país" ?',
     choices:['uns paiss','uns países','uns paísas','uns paísens'], answer:1,
-    fr:'país → países  (-s → -es, accent sur le i)' },
+    fr:'país = pays ✦ país → países (-s → -es, accent sur le i)' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 1 : verbo SER ══
-  { id:'g1_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ser</em> (affirmative)',
+  { id:'g1_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ser</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['sou','é','somos','são'],
     fr:'suis / est / sommes / sont' },
@@ -380,7 +419,7 @@ const ALL_EX = [
   { id:'g1_q2', cat:'choix', type:'choix', prompt:'ser — quelle utilisation ?',
     q:'"Sou professor de português" — ser exprime ici :',
     choices:['une localisation','une profession','un état temporaire','la météo'], answer:1,
-    fr:'ser + profession → Sou professor de português.' },
+    fr:'ser = être ✦ ser + profession → Sou professor de português. = Je suis professeur de portugais.' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 2 : verbo ESTAR ══
   { id:'g2_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>estar</em>',
@@ -401,7 +440,7 @@ const ALL_EX = [
   { id:'g2_q1', cat:'choix', type:'choix', prompt:'estar — choisir la bonne phrase :',
     q:'"Le Pedro est en vacances au Pantanal" en portugais :',
     choices:['O Pedro é de férias no Pantanal.','O Pedro está de férias no Pantanal.','O Pedro tem férias no Pantanal.','O Pedro fica de férias no Pantanal.'], answer:1,
-    fr:'O Pedro está de férias no Pantanal. → état temporaire = estar' },
+    fr:'estar = être (temporaire) ✦ O Pedro está de férias no Pantanal. = Le Pedro est en vacances au Pantanal.' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 3 : SER vs ESTAR ══
   { id:'g3_t1', cat:'trou', type:'trou', prompt:'ser ou estar ? (U3) :',
@@ -417,18 +456,18 @@ const ALL_EX = [
   { id:'g3_q1', cat:'choix', type:'choix', prompt:'ser ou estar + adjectif ?',
     q:'"Le vêtement est déchiré (parce que quelqu\'un l\'a déchiré)" :',
     choices:['O vestido é rasgado.','O vestido está rasgado.','O vestido fica rasgado.','O vestido tem rasgado.'], answer:1,
-    fr:'O vestido está rasgado. → résultat d\'une action = estar' },
+    fr:'estar = être (résultat d\'une action) ✦ O vestido está rasgado. = Le vêtement est déchiré.' },
 
   { id:'g3_q2', cat:'choix', type:'choix', prompt:'ser ou estar + adjectif ?',
     q:'"Il est intelligent" (de nature) :',
     choices:['Ele está inteligente.','Ele fica inteligente.','Ele é inteligente.','Ele tem inteligente.'], answer:2,
-    fr:'Ele é inteligente. → caractéristique générale = ser' },
+    fr:'ser = être (caractéristique générale) ✦ Ele é inteligente. = Il est intelligent (de nature).' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 4 : ESTAR + GERÚNDIO ══
   { id:'g4_t1', cat:'trou', type:'trou', prompt:'Gérondif — forme correcte :',
     parts:['falar → ','   / comer → ','   / abrir → ','.'],
     answers:['falando','comendo','abrindo'], hints:['-ar+ndo','-er+ndo','-ir+ndo'],
-    fr:'falar → falando / comer → comendo / abrir → abrindo' },
+    fr:'falar = parler / comer = manger / abrir = ouvrir ✦ falando / comendo / abrindo (infinitif - r + ndo)' },
 
   { id:'g4_t2', cat:'trou', type:'trou', prompt:'estar + gérondif — complète (U4) :',
     parts:['Ela ',' lendo. Eles ',' trabalhando. O Carlos ',' pondo o carro na garagem.'],
@@ -438,12 +477,12 @@ const ALL_EX = [
   { id:'g4_q1', cat:'choix', type:'choix', prompt:'Gérondif de "pôr" :',
     q:'"Je suis en train de mettre le café" :',
     choices:['Estou pôrendo o café.','Estou porindo o café.','Estou pondo o café.','Estou põendo o café.'], answer:2,
-    fr:'pôr → pondo (irrégulier) → Estou pondo o café.' },
+    fr:'pôr = mettre/poser ✦ pondo (irrégulier) → Estou pondo o café. = Je suis en train de faire le café.' },
 
   { id:'g4_q2', cat:'choix', type:'choix', prompt:'estar + gérondif — lequel est correct ?',
     q:'"Ils sont en train de dormir" :',
     choices:['Eles estão dormindo.','Eles são dormindo.','Eles ficam dormindo.','Eles têm dormindo.'], answer:0,
-    fr:'Eles estão dormindo. → dormir - r + ndo = dormindo' },
+    fr:'dormir = dormir ✦ Eles estão dormindo. = Ils sont en train de dormir. (dormir - r + ndo = dormindo)' },
 
   { id:'g4_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (gérondif) :',
     q:'Je suis en train d\'étudier le portugais.',
@@ -458,20 +497,20 @@ const ALL_EX = [
     fr:'Ela está fazendo o almoço.' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 5 : verbes réguliers en -AR ══
-  { id:'g5_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>falar</em> (parler)',
+  { id:'g5_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>falar</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['falo','fala','falamos','falam'],
-    fr:'parle / parle / parlons / parlent' },
+    fr:'falar = parler ✦ falo / fala / falamos / falam' },
 
-  { id:'g5_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>morar</em> (habiter)',
+  { id:'g5_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>morar</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['moro','mora','moramos','moram'],
-    fr:'habite / habite / habitons / habitent' },
+    fr:'morar = habiter ✦ moro / mora / moramos / moram' },
 
-  { id:'g5_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>trabalhar</em> (travailler)',
+  { id:'g5_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>trabalhar</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['trabalho','trabalha','trabalhamos','trabalham'],
-    fr:'travaille / travaille / travaillons / travaillent' },
+    fr:'trabalhar = travailler ✦ trabalho / trabalha / trabalhamos / trabalham' },
 
   { id:'g5_t1', cat:'trou', type:'trou', prompt:'Verbes en -ar — complète (U5) :',
     parts:['Eu me ',' sempre às 8h. Normalmente ',' às 13h. O Sr. Ramos ',' o jornal todos os dias.'],
@@ -490,17 +529,17 @@ const ALL_EX = [
     fr:'No Brasil, os bancos fecham às 17h para o público.' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 6 : verbes réguliers en -ER ══
-  { id:'g6_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>comer</em> (manger)',
+  { id:'g6_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>comer</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['como','come','comemos','comem'],
-    fr:'mange / mange / mangeons / mangent' },
+    fr:'comer = manger ✦ como / come / comemos / comem' },
 
-  { id:'g6_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>beber</em> (boire)',
+  { id:'g6_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>beber</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['bebo','bebe','bebemos','bebem'],
-    fr:'bois / boit / buvons / boivent' },
+    fr:'beber = boire ✦ bebo / bebe / bebemos / bebem' },
 
-  { id:'g6_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conhecer</em> (1ère pers. irrégulière)',
+  { id:'g6_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conhecer</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['conheço','conhece','conhecemos','conhecem'],
     fr:'connais / connaît / connaissons / connaissent' },
@@ -513,7 +552,7 @@ const ALL_EX = [
   { id:'g6_q1', cat:'choix', type:'choix', prompt:'1ère personne irrégulière en -er :',
     q:'"esquecer" à la 1ère personne du singulier :',
     choices:['esqueco','esqueço','esquezo','esquecio'], answer:1,
-    fr:'eu esqueço (esquecer → 1ère pers. : c → ç devant o)' },
+    fr:'esquecer = oublier ✦ eu esqueço (esquecer → 1ère pers. : c → ç devant o)' },
 
   { id:'g6_trad1', cat:'traduction', type:'trad', prompt:'Traduis en français :',
     q:'Eu bebo café de manhã, mas ela bebe chá.',
@@ -522,35 +561,35 @@ const ALL_EX = [
     fr:'Je bois du café le matin, mais elle boit du thé.' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 7 : verbes irréguliers en -ER ══
-  { id:'g7_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>fazer</em> (faire)',
+  { id:'g7_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>fazer</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['faço','faz','fazemos','fazem'],
-    fr:'fais / fait / faisons / font' },
+    fr:'fazer = faire ✦ faço / faz / fazemos / fazem' },
 
-  { id:'g7_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>poder</em> (pouvoir)',
+  { id:'g7_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>poder</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['posso','pode','podemos','podem'],
-    fr:'peux / peut / pouvons / peuvent' },
+    fr:'poder = pouvoir ✦ posso / pode / podemos / podem' },
 
-  { id:'g7_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>querer</em> (vouloir)',
+  { id:'g7_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>querer</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['quero','quer','queremos','querem'],
-    fr:'veux / veut / voulons / veulent' },
+    fr:'querer = vouloir ✦ quero / quer / queremos / querem' },
 
-  { id:'g7_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>saber</em> (savoir)',
+  { id:'g7_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>saber</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['sei','sabe','sabemos','sabem'],
-    fr:'sais / sait / savons / savent' },
+    fr:'saber = savoir ✦ sei / sabe / sabemos / sabem' },
 
-  { id:'g7_c5', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ver</em> (voir)',
+  { id:'g7_c5', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ver</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['vejo','vê','vemos','veem'],
-    fr:'vois / voit / voyons / voient' },
+    fr:'ver = voir ✦ vejo / vê / vemos / veem' },
 
-  { id:'g7_c6', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ler</em> (lire)',
+  { id:'g7_c6', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>ler</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['leio','lê','lemos','leem'],
-    fr:'lis / lit / lisons / lisent' },
+    fr:'ler = lire ✦ leio / lê / lemos / leem' },
 
   { id:'g7_t1', cat:'trou', type:'trou', prompt:'Verbes irréguliers — complète (U7) :',
     parts:['Não ',' sair, porque tenho que estudar. Ela ',' falar muitas línguas. Eu ',' aniversário em abril.'],
@@ -565,12 +604,12 @@ const ALL_EX = [
   { id:'g7_q1', cat:'choix', type:'choix', prompt:'Verbe irrégulier — forme correcte :',
     q:'"pôr" à la 1ère personne du singulier :',
     choices:['poo','põo','ponho','poro'], answer:2,
-    fr:'eu ponho (pôr est très irrégulier : ponho / põe / pomos / põem)' },
+    fr:'pôr = mettre / poser ✦ eu ponho (irrégulier : ponho / põe / pomos / põem)' },
 
   { id:'g7_q2', cat:'choix', type:'choix', prompt:'Verbe irrégulier — forme correcte :',
     q:'"trazer" à la 1ère personne :',
     choices:['trazo','trago','traio','trego'], answer:1,
-    fr:'eu trago (trazer → trago / traz / trazemos / trazem)' },
+    fr:'trazer = apporter / amener ✦ eu trago (trazer → trago / traz / trazemos / trazem)' },
 
   { id:'g7_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbes irrég.) :',
     q:'Je ne peux pas sortir ce soir.',
@@ -585,25 +624,25 @@ const ALL_EX = [
     fr:'Vous savez à quelle heure est le film ?' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 8 : verbes réguliers en -IR ══
-  { id:'g8_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>abrir</em> (ouvrir)',
+  { id:'g8_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>abrir</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['abro','abre','abrimos','abrem'],
-    fr:'ouvre / ouvre / ouvrons / ouvrent' },
+    fr:'abrir = ouvrir ✦ abro / abre / abrimos / abrem' },
 
-  { id:'g8_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>preferir</em> (préférer) — 1ère pers. irrégulière',
+  { id:'g8_c2', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>preferir</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['prefiro','prefere','preferimos','preferem'],
-    fr:'préfère / préfère / préférons / préfèrent' },
+    fr:'preferir = préférer ✦ prefiro / prefere / preferimos / preferem' },
 
-  { id:'g8_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conseguir</em> (réussir à)',
+  { id:'g8_c3', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>conseguir</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['consigo','consegue','conseguimos','conseguem'],
-    fr:'réussis / réussit / réussissons / réussissent' },
+    fr:'conseguir = réussir à ✦ consigo / consegue / conseguimos / conseguem' },
 
-  { id:'g8_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>sentir</em> (sentir/se sentir)',
+  { id:'g8_c4', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>sentir</em>',
     pronouns:['Eu','Você/Ele/Ela','Nós','Vocês/Eles/Elas'],
     answers:['sinto','sente','sentimos','sentem'],
-    fr:'sens / sent / sentons / sentent' },
+    fr:'sentir = sentir/se sentir ✦ sinto / sente / sentimos / sentem' },
 
   { id:'g8_t1', cat:'trou', type:'trou', prompt:'Verbes en -ir — complète (U8) :',
     parts:['As lojas ',' às 10h. Eles ',' ir ao cinema. Não ',' abrir esta janela.'],
@@ -618,12 +657,12 @@ const ALL_EX = [
   { id:'g8_q1', cat:'choix', type:'choix', prompt:'1ère pers. irrégulière en -ir :',
     q:'"vestir" à la 1ère personne du singulier :',
     choices:['vesto','visto','vestio','vistio'], answer:1,
-    fr:'eu visto (vestir → 1ère pers. : e → i → visto)' },
+    fr:'vestir = habiller / porter ✦ eu visto (vestir → 1ère pers. : e → i → visto)' },
 
   { id:'g8_q2', cat:'choix', type:'choix', prompt:'1ère pers. irrégulière en -ir :',
     q:'"dirigir" à la 1ère personne du singulier :',
     choices:['dirigo','dirijo','diriijo','dirigo'], answer:1,
-    fr:'eu dirijo (dirigir → g → j devant o → dirijo)' },
+    fr:'dirigir = conduire / diriger ✦ eu dirijo (dirigir → g → j devant o → dirijo)' },
 
   { id:'g8_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbe -ir) :',
     q:'Je préfère rester à la maison.',
@@ -688,10 +727,12 @@ function isOk(ex, inputs){
 }
 
 // ─── STATE ───────────────────────────────────────────────────────
-const DAILY_COUNT = 15;
+const DAILY_COUNT = 25;
 let mode = 'day';
 let queue = [], cur = 0, correct = 0, answered = 0;
 let choiceSel = null;
+// Per-question flip state: maps queue index → true (flipped = FR→PT)
+let flips = {};
 
 function todayKey(){
   const d = new Date();
@@ -701,7 +742,6 @@ function todayKey(){
 function buildQueue(){
   let pool;
   if(mode==='day'){
-    // Seed by date so same 15 questions all day; but on reload within day keep same seed
     const seed = todayKey().split('-').reduce((a,b)=>a*31+parseInt(b),0);
     const seeded = seededShuffle(ALL_EX.map((_,i)=>i), seed);
     pool = seeded.slice(0, DAILY_COUNT);
@@ -711,6 +751,14 @@ function buildQueue(){
     pool = shuffle(ALL_EX.map((_,i)=>i).filter(i=>ALL_EX[i].cat===mode));
   }
   queue = pool; cur = 0; correct = 0; answered = 0; choiceSel = null;
+  // Randomly flip word/trad exercises
+  flips = {};
+  queue.forEach((idx, qi) => {
+    const ex = ALL_EX[idx];
+    if(ex.type === 'word' || ex.type === 'trad') {
+      flips[qi] = Math.random() < 0.5;
+    }
+  });
 }
 
 function seededShuffle(arr, seed){
@@ -761,17 +809,18 @@ function dayBanner(){
   const months = ['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
   const label = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   document.getElementById('h-date').textContent = label;
-  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 15 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
+  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 25 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
 }
 
 function buildCard(ex){
   const label = {conj:'Conjugaison',trou:'À trous',trad:'Traduction',word:'Vocabulaire',choix:'Choix multiple'}[ex.type];
   let body = '';
+  const flipped = !!flips[cur]; // true = show French, ask for Portuguese
 
   if(ex.type==='conj'){
     body += '<div class="conj-rows">';
     ex.pronouns.forEach((p,i)=>{
-      body += `<div class="conj-row"><span class="pronoun">${p}</span><input data-i="${i}" autocomplete="off" spellcheck="false" placeholder="…"></div>`;
+      body += `<div class="conj-row"><span class="pronoun">${p}</span><input data-i="${i}" autocomplete="off" spellcheck="false" inputmode="text" placeholder="…"></div>`;
     });
     body += '</div>';
   } else if(ex.type==='trou'){
@@ -779,14 +828,65 @@ function buildCard(ex){
     ex.parts.forEach((part,i)=>{
       body += part.replace(/\n/g,'<br>');
       if(i < ex.answers.length)
-        body += `<input class="blank" data-i="${i}" placeholder="${(ex.hints&&ex.hints[i])||'…'}" autocomplete="off" spellcheck="false">`;
+        body += `<input class="blank" data-i="${i}" placeholder="${(ex.hints&&ex.hints[i])||'…'}" autocomplete="off" spellcheck="false" inputmode="text">`;
     });
     body += '</div>';
   } else if(ex.type==='trad'){
-    body += `<input class="answer-input" data-i="0" placeholder="Ta réponse…" autocomplete="off" spellcheck="false">`;
+    // flipped: show PT question, ask FR / normal: show FR question, ask PT (or as defined)
+    const isNormPTtoFR = ex.prompt.includes('français');
+    let qText, promptText, ph;
+    if(flipped && !isNormPTtoFR){
+      // Normal is FR→PT, flipped becomes PT→FR: use fr field as question, answer is original answer
+      promptText = 'Traduis en français :';
+      qText = ex.fr || ex.q;
+      ph = 'Traduction en français…';
+    } else if(flipped && isNormPTtoFR){
+      // Normal is PT→FR, flipped becomes FR→PT
+      promptText = 'Traduis en portugais :';
+      qText = ex.fr || ex.q;
+      ph = 'Traduction en portugais…';
+    } else {
+      promptText = ex.prompt;
+      qText = ex.q;
+      ph = 'Ta réponse…';
+    }
+    body += `<input class="answer-input" data-i="0" placeholder="${ph}" autocomplete="off" spellcheck="false" inputmode="text">`;
+    // Store flipped state on card for tryCheck
+    body += `<input type="hidden" id="flip-state" value="${flipped?'1':'0'}">`;
+    return `<div class="card" id="the-card">
+      <div class="card-meta"><span>Q ${cur+1}/${queue.length}</span><span class="card-cat">${label}</span></div>
+      <div class="card-prompt">${promptText}</div>
+      <div class="card-q">${esc(qText||'')}</div>
+      ${body}
+      <div class="feedback" id="feedback"></div>
+      <div class="btn-row" id="btn-row">
+        <button class="btn btn-check" onclick="tryCheck()">Vérifier</button>
+      </div>
+    </div>`;
   } else if(ex.type==='word'){
-    body += `<div class="word-big">${esc(ex.q)}</div>`;
-    body += `<input class="answer-input" data-i="0" placeholder="Traduction en français…" autocomplete="off" spellcheck="false">`;
+    // flipped: show French word, ask Portuguese / normal: show PT, ask FR
+    let displayWord, ph, promptText;
+    if(flipped){
+      displayWord = ex.answer; // show French
+      promptText = 'Traduis en portugais :';
+      ph = 'Traduction en portugais…';
+    } else {
+      displayWord = ex.q; // show Portuguese
+      promptText = 'Traduis en français :';
+      ph = 'Traduction en français…';
+    }
+    body += `<div class="word-big">${esc(displayWord)}</div>`;
+    body += `<input class="answer-input" data-i="0" placeholder="${ph}" autocomplete="off" spellcheck="false" inputmode="text">`;
+    body += `<input type="hidden" id="flip-state" value="${flipped?'1':'0'}">`;
+    return `<div class="card" id="the-card">
+      <div class="card-meta"><span>Q ${cur+1}/${queue.length}</span><span class="card-cat">${label}</span></div>
+      <div class="card-prompt">${promptText}</div>
+      ${body}
+      <div class="feedback" id="feedback"></div>
+      <div class="btn-row" id="btn-row">
+        <button class="btn btn-check" onclick="tryCheck()">Vérifier</button>
+      </div>
+    </div>`;
   } else if(ex.type==='choix'){
     body += '<div class="choices">';
     ex.choices.forEach((c,i)=>{
@@ -818,6 +918,7 @@ function pickChoice(i){
 
 function tryCheck(){
   const ex = ALL_EX[queue[cur]];
+  const flipped = !!flips[cur];
   let inputs;
   if(ex.type==='choix'){
     if(choiceSel===null) return;
@@ -827,12 +928,36 @@ function tryCheck(){
     document.querySelectorAll('#the-card input[data-i]').forEach(el=>inputs[+el.dataset.i]=el.value);
   }
 
-  const ok = isOk(ex, inputs);
+  // For flipped word: correct answer is the PT word (ex.q), not ex.answer (FR)
+  let ok;
+  if((ex.type==='word'||ex.type==='trad') && flipped){
+    // Flipped: user types the opposite direction
+    // word flipped: displayed FR (ex.answer), user types PT (ex.q)
+    // trad flipped: shown is FR version, user types PT
+    const u = norm(inputs[0]||'');
+    if(ex.type==='word'){
+      ok = norm(ex.q)===u || (ex.accept||[]).some(a=>norm(a)===u);
+      // also accept if ex.q contains the answer
+    } else {
+      // trad flipped: the fr field has the PT sentence displayed, user types FR
+      const isNormPTtoFR = ex.prompt.includes('français');
+      if(isNormPTtoFR){
+        // normally PT→FR, flipped means show fr (FR) ask PT answer = ex.answer
+        ok = u===norm(ex.answer)||(ex.accept||[]).some(a=>norm(a)===u);
+      } else {
+        // normally FR→PT, flipped means show fr ask FR (answer = first part of fr)
+        ok = isOk(ex, inputs);
+      }
+    }
+  } else {
+    ok = isOk(ex, inputs);
+  }
+
   if(ok) correct++;
   answered++;
   updateBar();
 
-  // style
+  // style inputs
   if(ex.type==='conj'||ex.type==='trou'){
     document.querySelectorAll('#the-card input[data-i]').forEach((el,i)=>{
       const good = norm(el.value||'')===norm(ex.answers[i]);
@@ -855,10 +980,16 @@ function tryCheck(){
     choiceSel=null;
   }
 
+  // Build correct answer display for feedback
+  let correctDisplay;
+  if(ex.type==='word' && flipped) correctDisplay = ex.q;
+  else if(ex.type==='choix') correctDisplay = ex.choices[ex.answer];
+  else correctDisplay = ex.answer;
+
   // feedback
   const fb = document.getElementById('feedback');
   fb.className='feedback show '+(ok?'ok':'ko');
-  let msg = ok ? '✓ Parfait !' : '✗ '+(ex.type!=='conj'&&ex.type!=='trou'?'Réponse : <strong>'+(ex.type==='choix'?ex.choices[ex.answer]:ex.answer)+'</strong>':'Quelques erreurs.');
+  let msg = ok ? '✓ Parfait !' : `✗ ${(ex.type!=='conj'&&ex.type!=='trou')?'Réponse : <strong>'+correctDisplay+'</strong>':'Quelques erreurs.'}`;
   if(ex.fr) msg += `<div class="fr-trans">🇫🇷 ${ex.fr}</div>`;
   if(ex.note) msg += `<div class="note-line">📝 ${ex.note}</div>`;
   fb.innerHTML = msg;
@@ -888,6 +1019,11 @@ function reshuffleDay(){
   const pool = shuffle(ALL_EX.map((_,i)=>i));
   queue = pool.slice(0, DAILY_COUNT);
   cur=0; correct=0; answered=0; choiceSel=null;
+  flips = {};
+  queue.forEach((idx, qi) => {
+    const ex = ALL_EX[idx];
+    if(ex.type === 'word' || ex.type === 'trad') flips[qi] = Math.random() < 0.5;
+  });
   showCurrent();
 }
 

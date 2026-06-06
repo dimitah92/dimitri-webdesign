@@ -86,7 +86,7 @@ header {
 }
 .conj-input:focus { border-bottom-color: var(--ink); }
 .conj-input.ok { color: var(--green); border-bottom-color: var(--green); }
-.conj-input.ko { color: var(--red); border-bottom-color: var(--red); }
+.conj-input.ko { color: var(--red); border-bottom-color: var(--red); text-decoration: line-through; opacity: 0.6; }
 .fix { font-size: 0.76rem; color: var(--green); font-weight: 600; margin-left: 2px; }
 
 /* TROU */
@@ -98,7 +98,7 @@ header {
 }
 .blank:focus { border-bottom-color: var(--ink); }
 .blank.ok { border-bottom-color: var(--green); color: var(--green); }
-.blank.ko { border-bottom-color: var(--red); color: var(--red); }
+.blank.ko { border-bottom-color: var(--red); color: var(--red); text-decoration: line-through; opacity: 0.6; }
 .ifix { font-size: 0.76rem; color: var(--green); font-weight: 600; margin-left: 3px; }
 
 /* TRAD / WORD */
@@ -110,7 +110,7 @@ header {
 }
 .answer-input:focus { border-color: var(--ink); }
 .answer-input.ok { border-color: var(--green); color: var(--green); }
-.answer-input.ko { border-color: var(--red); }
+.answer-input.ko { border-color: var(--red); text-decoration: line-through; opacity: 0.6; }
 
 /* CHOICES */
 .choices { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
@@ -195,7 +195,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v7 · 06/06/2026</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v8 · 06/06/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>

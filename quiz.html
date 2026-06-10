@@ -219,7 +219,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v9 · 06/06/2026</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v12 · 06/06/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>
@@ -315,47 +315,50 @@ const ALL_EX = [
 
   // TRADUCTION
   { id:'r1', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je m\'appelle Dimitri. Je suis français.',
-    answer:'eu me chamo dimitri eu sou frances', accept:['me chamo dimitri sou frances','eu me chamo dimitri, eu sou frances'],
-    fr:'Eu me chamo Dimitri. Eu sou francês.' },
+    answer:'eu me chamo dimitri eu sou frances', display:'Eu me chamo Dimitri. Eu sou francês.', accept:['me chamo dimitri sou frances','eu me chamo dimitri, eu sou frances'],
+    fr:'Eu me chamo Dimitri. ✦ chamar-se = s\'appeler / francês = français' },
   { id:'r2', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je suis chef de projet digital.',
-    answer:'eu sou chefe de projeto digital', accept:['sou chefe de projeto digital'],
-    fr:'Eu sou chefe de projeto digital.' },
-  { id:'r3', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Ela tem dois filhos, um menino e uma menina.',
-    answer:'elle a deux enfants un garçon et une fille',
-    fr:'Elle a deux enfants, un garçon et une fille.' },
+    answer:'eu sou chefe de projeto digital', display:'Eu sou chefe de projeto digital.', accept:['sou chefe de projeto digital'],
+    fr:'Eu sou chefe de projeto digital. ✦ ser = être / chefe = chef' },
+  { id:'r3', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Elle a deux enfants, un garçon et une fille.',
+    answer:'ela tem dois filhos uma menina e um menino', display:'Ela tem dois filhos, um menino e uma menina.',
+    accept:['ela tem dois filhos um menino e uma menina'],
+    fr:'Ela tem dois filhos, um menino e uma menina. ✦ filhos = enfants / menino = garçon / menina = fille' },
   { id:'r4', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Je vais au cinéma.',
-    answer:'eu vou ao cinema', accept:['vou ao cinema'],
-    fr:'Eu vou ao cinema.' },
-  { id:'r5', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Você está em qual cidade?',
-    answer:'tu es dans quelle ville', accept:['dans quelle ville es-tu','vous êtes dans quelle ville'],
-    fr:'Tu es dans quelle ville ?' },
+    answer:'eu vou ao cinema', display:'Eu vou ao cinema.', accept:['vou ao cinema'],
+    fr:'Eu vou ao cinema. ✦ ir = aller / ao = a+o (contraction)' },
+  { id:'r5', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Tu es dans quelle ville ?',
+    answer:'voce esta em qual cidade', display:'Você está em qual cidade?',
+    accept:['você está em qual cidade','você esta em qual cidade'],
+    fr:'Você está em qual cidade? ✦ estar = être (localisation) / qual = quelle' },
   { id:'r6', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Il joue de la batterie.',
-    answer:'ele toca bateria', fr:'Ele toca bateria.' },
+    answer:'ele toca bateria', display:'Ele toca bateria.', fr:'Ele toca bateria. ✦ tocar = jouer d\'un instrument / bateria = batterie' },
   { id:'r7', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Eu estou trabalhando em casa hoje.',
-    answer:'je travaille a la maison aujourd hui',
+    answer:'je travaille a la maison aujourd hui', display:'Je travaille à la maison aujourd\'hui.',
+    frNote:'Eu estou trabalhando = je suis en train de travailler (gérondif)',
     accept:['aujourd hui je travaille a la maison','je suis en train de travailler a la maison aujourd hui'],
-    fr:'Je travaille à la maison aujourd\'hui.' },
+    fr:'Eu estou trabalhando = je suis en train de travailler (gérondif) ✦ à la maison = em casa' },
   { id:'r8', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'J\'ai faim.',
-    answer:'eu tenho fome', accept:['tenho fome','eu estou com fome','estou com fome'],
-    fr:'Eu tenho fome. / Eu estou com fome.' },
+    answer:'eu tenho fome', display:'Eu tenho fome. / Eu estou com fome.', accept:['tenho fome','eu estou com fome','estou com fome'],
+    fr:'Eu tenho fome. / Eu estou com fome. ✦ ter fome ou estar com fome = avoir faim' },
   // Nouvelles traductions — pluriel / couleurs
   { id:'r9', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Les couleurs du drapeau français sont bleu, blanc et rouge.',
-    answer:'as cores da bandeira da franca sao azul branco e vermelho',
+    answer:'as cores da bandeira da franca sao azul branco e vermelho', display:'As cores da bandeira da França são azul, branco e vermelho.',
     accept:['as cores da bandeira francesa sao azul branco e vermelho'],
-    fr:'As cores da bandeira da França são azul, branco e vermelho.' },
+    fr:'As cores da bandeira da França são azul, branco e vermelho. ✦ cores = couleurs / bandeira = drapeau' },
   { id:'r10', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Ce sont des fêtes universelles.',
-    answer:'sao festas universais', accept:['são festas universais','sao umas festas universais','são umas festas universais'],
-    fr:'São festas universais.' },
+    answer:'sao festas universais', display:'São festas universais.', accept:['são festas universais','sao umas festas universais','são umas festas universais'],
+    fr:'São festas universais. ✦ plural : universal → universais (-al → -ais)' },
   { id:'r11', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Gilberto Gil et Caetano Veloso sont des chanteurs brésiliens.',
-    answer:'gilberto gil e caetano veloso sao cantores brasileiros',
-    fr:'Gilberto Gil e Caetano Veloso são cantores brasileiros.' },
-  { id:'r12', cat:'traduction', type:'trad', prompt:'Traduis en français :', q:'Mercedes-Benz e Volkswagen são marcas alemãs.',
-    answer:'mercedes-benz et volkswagen sont des marques allemandes',
-    accept:['mercedes benz et volkswagen sont des marques allemandes'],
-    fr:'Mercedes-Benz et Volkswagen sont des marques allemandes.' },
+    answer:'gilberto gil e caetano veloso sao cantores brasileiros', display:'Gilberto Gil e Caetano Veloso são cantores brasileiros.',
+    fr:'Gilberto Gil e Caetano Veloso são cantores brasileiros. ✦ cantor → cantores / brasileiro → brasileiros' },
+  { id:'r12', cat:'traduction', type:'trad', prompt:'Traduis en portugais :', q:'Mercedes-Benz et Volkswagen sont des marques allemandes.',
+    answer:'mercedes-benz e volkswagen sao marcas alemas', display:'Mercedes-Benz e Volkswagen são marcas alemãs.',
+    accept:['mercedes benz e volkswagen sao marcas alemas'],
+    fr:'Mercedes-Benz e Volkswagen são marcas alemãs. ✦ alemãs = allemandes (pluriel féminin de alemão)' },
   { id:'r13', cat:'traduction', type:'trad', prompt:'Traduis en portugais (pluriel) :', q:'Ils achètent beaucoup de vêtements.',
-    answer:'eles compram muitas roupas',
-    fr:'Eles compram muitas roupas.' },
+    answer:'eles compram muitas roupas', display:'Eles compram muitas roupas.',
+    fr:'Eles compram muitas roupas. ✦ comprar = acheter / roupa = vêtement / muitas = beaucoup de' },
 
   // VOCABULAIRE — cesto de palavras complet
   { id:'v1',  cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'doente',         answer:'malade', fr:'doente = malade' },
@@ -510,15 +513,15 @@ const ALL_EX = [
 
   { id:'g4_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (gérondif) :',
     q:'Je suis en train d\'étudier le portugais.',
-    answer:'estou estudando portugues',
+    answer:'estou estudando portugues', display:'Estou estudando português.',
     accept:['eu estou estudando portugues','estou estudando o portugues'],
-    fr:'Estou estudando português.' },
+    fr:'Estou estudando português. ✦ estudar → estudando (gérondif) / português = portugais' },
 
   { id:'g4_trad2', cat:'traduction', type:'trad', prompt:'Traduis en portugais (gérondif) :',
     q:'Elle est en train de faire le déjeuner.',
-    answer:'ela esta fazendo o almoco',
+    answer:'ela esta fazendo o almoco', display:'Ela está fazendo o almoço.',
     accept:['ela está fazendo o almoço','ela esta fazendo almoco'],
-    fr:'Ela está fazendo o almoço.' },
+    fr:'Ela está fazendo o almoço. ✦ fazer → fazendo (gérondif irrég.) / almoço = déjeuner' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 5 : verbes réguliers en -AR ══
   { id:'g5_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>falar</em>',
@@ -548,9 +551,9 @@ const ALL_EX = [
 
   { id:'g5_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbe -ar) :',
     q:'Les banques ferment à 17h pour le public.',
-    answer:'os bancos fecham as 17h para o publico',
+    answer:'os bancos fecham as 17h para o publico', display:'No Brasil, os bancos fecham às 17h para o público.',
     accept:['no brasil os bancos fecham as 17h para o publico'],
-    fr:'No Brasil, os bancos fecham às 17h para o público.' },
+    fr:'Os bancos fecham às 17h para o público. ✦ fechar = fermer / às = à les (contraction)' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 6 : verbes réguliers en -ER ══
   { id:'g6_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>comer</em>',
@@ -578,11 +581,11 @@ const ALL_EX = [
     choices:['esqueco','esqueço','esquezo','esquecio'], answer:1,
     fr:'esquecer = oublier ✦ eu esqueço (esquecer → 1ère pers. : c → ç devant o)' },
 
-  { id:'g6_trad1', cat:'traduction', type:'trad', prompt:'Traduis en français :',
-    q:'Eu bebo café de manhã, mas ela bebe chá.',
-    answer:'je bois du café le matin mais elle boit du thé',
-    accept:['je bois un café le matin mais elle boit du thé'],
-    fr:'Je bois du café le matin, mais elle boit du thé.' },
+  { id:'g6_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais :',
+    q:'Je bois du café le matin, mais elle boit du thé.',
+    answer:'eu bebo cafe de manha mas ela bebe cha', display:'Eu bebo café de manhã, mas ela bebe chá.',
+    accept:['bebo cafe de manha mas ela bebe cha'],
+    fr:'Eu bebo café de manhã, mas ela bebe chá. ✦ beber = boire / manhã = le matin' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 7 : verbes irréguliers en -ER ══
   { id:'g7_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>fazer</em>',
@@ -637,15 +640,15 @@ const ALL_EX = [
 
   { id:'g7_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbes irrég.) :',
     q:'Je ne peux pas sortir ce soir.',
-    answer:'não posso sair hoje a noite',
+    answer:'não posso sair hoje a noite', display:'Não posso sair hoje à noite.',
     accept:['eu não posso sair hoje à noite','não posso sair esta noite'],
-    fr:'Não posso sair hoje à noite.' },
+    fr:'Não posso sair hoje à noite. ✦ poder = pouvoir / sair = sortir / à noite = le soir' },
 
-  { id:'g7_trad2', cat:'traduction', type:'trad', prompt:'Traduis en français :',
-    q:'Vocês sabem a que horas é o filme?',
-    answer:'vous savez à quelle heure est le film',
-    accept:['vous savez à quelle heure commence le film','tu sais à quelle heure est le film'],
-    fr:'Vous savez à quelle heure est le film ?' },
+  { id:'g7_trad2', cat:'traduction', type:'trad', prompt:'Traduis en portugais :',
+    q:'Vous savez à quelle heure est le film ?',
+    answer:'voces sabem a que horas e o filme', display:'Vocês sabem a que horas é o filme?',
+    accept:['vocês sabem a que horas é o filme'],
+    fr:'Vocês sabem a que horas é o filme? ✦ saber = savoir / a que horas = à quelle heure' },
 
   // ══ GRAMATICA ATIVA — UNIDADE 8 : verbes réguliers en -IR ══
   { id:'g8_c1', cat:'conjugaison', type:'conj', prompt:'Conjugue au présent : <em>abrir</em>',
@@ -690,15 +693,15 @@ const ALL_EX = [
 
   { id:'g8_trad1', cat:'traduction', type:'trad', prompt:'Traduis en portugais (verbe -ir) :',
     q:'Je préfère rester à la maison.',
-    answer:'eu prefiro ficar em casa',
+    answer:'eu prefiro ficar em casa', display:'Eu prefiro ficar em casa.',
     accept:['prefiro ficar em casa'],
-    fr:'Eu prefiro ficar em casa.' },
+    fr:'Eu prefiro ficar em casa. ✦ preferir = préférer (eu prefiro) / ficar = rester' },
 
-  { id:'g8_trad2', cat:'traduction', type:'trad', prompt:'Traduis en français :',
-    q:'Não consigo abrir esta janela.',
-    answer:'je n\'arrive pas à ouvrir cette fenêtre',
-    accept:['je ne réussis pas à ouvrir cette fenêtre','je n arrive pas a ouvrir cette fenetre'],
-    fr:'Je n\'arrive pas à ouvrir cette fenêtre.' },
+  { id:'g8_trad2', cat:'traduction', type:'trad', prompt:'Traduis en portugais :',
+    q:'Je n\'arrive pas à ouvrir cette fenêtre.',
+    answer:'nao consigo abrir esta janela', display:'Não consigo abrir esta janela.',
+    accept:['não consigo abrir esta janela'],
+    fr:'Não consigo abrir esta janela. ✦ conseguir = réussir à / janela = fenêtre' },
 
   // ══ VOCABULAIRE NOUVEAU (U5-U8) ══
   { id:'gv1', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'levantar',
@@ -775,11 +778,11 @@ function buildQueue(){
     pool = shuffle(ALL_EX.map((_,i)=>i).filter(i=>ALL_EX[i].cat===mode));
   }
   queue = pool; cur = 0; correct = 0; answered = 0; choiceSel = null;
-  // Randomly flip word/trad exercises
+  // Randomly flip word exercises only (trad is always FR→PT now)
   flips = {};
   queue.forEach((idx, qi) => {
     const ex = ALL_EX[idx];
-    if(ex.type === 'word' || ex.type === 'trad') {
+    if(ex.type === 'word') {
       flips[qi] = Math.random() < 0.5;
     }
   });
@@ -856,31 +859,11 @@ function buildCard(ex){
     });
     body += '</div>';
   } else if(ex.type==='trad'){
-    // flipped: show PT question, ask FR / normal: show FR question, ask PT (or as defined)
-    const isNormPTtoFR = ex.prompt.includes('français');
-    let qText, promptText, ph;
-    if(flipped && !isNormPTtoFR){
-      // Normal is FR→PT, flipped becomes PT→FR: use fr field as question, answer is original answer
-      promptText = 'Traduis en français :';
-      qText = ex.fr || ex.q;
-      ph = 'Traduction en français…';
-    } else if(flipped && isNormPTtoFR){
-      // Normal is PT→FR, flipped becomes FR→PT
-      promptText = 'Traduis en portugais :';
-      qText = ex.fr || ex.q;
-      ph = 'Traduction en portugais…';
-    } else {
-      promptText = ex.prompt;
-      qText = ex.q;
-      ph = 'Ta réponse…';
-    }
-    body += `<input class="answer-input" data-i="0" placeholder="${ph}" autocomplete="off" spellcheck="false" inputmode="text">`;
-    // Store flipped state on card for tryCheck
-    body += `<input type="hidden" id="flip-state" value="${flipped?'1':'0'}">`;
+    body += `<input class="answer-input" data-i="0" placeholder="Ta traduction en portugais…" autocomplete="off" spellcheck="false" inputmode="text">`;
     return `<div class="card" id="the-card">
       <div class="card-meta"><span>Q ${cur+1}/${queue.length}</span><span class="card-cat">${label}</span></div>
-      <div class="card-prompt">${promptText}</div>
-      <div class="card-q">${esc(qText||'')}</div>
+      <div class="card-prompt">${ex.prompt}</div>
+      <div class="card-q">${esc(ex.q||'')}</div>
       ${body}
       <div class="feedback" id="feedback"></div>
       <div class="btn-row" id="btn-row">
@@ -954,25 +937,9 @@ function tryCheck(){
 
   // For flipped word: correct answer is the PT word (ex.q), not ex.answer (FR)
   let ok;
-  if((ex.type==='word'||ex.type==='trad') && flipped){
-    // Flipped: user types the opposite direction
-    // word flipped: displayed FR (ex.answer), user types PT (ex.q)
-    // trad flipped: shown is FR version, user types PT
+  if(ex.type==='word' && flipped){
     const u = norm(inputs[0]||'');
-    if(ex.type==='word'){
-      ok = norm(ex.q)===u || (ex.accept||[]).some(a=>norm(a)===u);
-      // also accept if ex.q contains the answer
-    } else {
-      // trad flipped: the fr field has the PT sentence displayed, user types FR
-      const isNormPTtoFR = ex.prompt.includes('français');
-      if(isNormPTtoFR){
-        // normally PT→FR, flipped means show fr (FR) ask PT answer = ex.answer
-        ok = u===norm(ex.answer)||(ex.accept||[]).some(a=>norm(a)===u);
-      } else {
-        // normally FR→PT, flipped means show fr ask FR (answer = first part of fr)
-        ok = isOk(ex, inputs);
-      }
-    }
+    ok = norm(ex.q)===u || (ex.accept||[]).some(a=>norm(a)===u);
   } else {
     ok = isOk(ex, inputs);
   }
@@ -1026,6 +993,7 @@ function tryCheck(){
   let correctDisplay;
   if(ex.type==='word' && flipped) correctDisplay = ex.q;
   else if(ex.type==='choix') correctDisplay = ex.choices[ex.answer];
+  else if(ex.display) correctDisplay = ex.display;
   else correctDisplay = ex.answer;
 
   // feedback
@@ -1033,6 +1001,7 @@ function tryCheck(){
   fb.className='feedback show '+(ok?'ok':'ko');
   let msg = ok ? '✓ Parfait !' : `✗ ${(ex.type!=='conj'&&ex.type!=='trou')?'Réponse : <strong>'+correctDisplay+'</strong>':'Quelques erreurs.'}`;
   if(ex.fr) msg += `<div class="fr-trans">🇫🇷 ${ex.fr}</div>`;
+  if(ex.frNote) msg += `<div class="note-line">📝 ${ex.frNote}</div>`;
   if(ex.note) msg += `<div class="note-line">📝 ${ex.note}</div>`;
   fb.innerHTML = msg;
   document.getElementById('the-card').classList.add(ok?'state-ok':'state-ko');
@@ -1064,7 +1033,7 @@ function reshuffleDay(){
   flips = {};
   queue.forEach((idx, qi) => {
     const ex = ALL_EX[idx];
-    if(ex.type === 'word' || ex.type === 'trad') flips[qi] = Math.random() < 0.5;
+    if(ex.type === 'word') flips[qi] = Math.random() < 0.5;
   });
   showCurrent();
 }

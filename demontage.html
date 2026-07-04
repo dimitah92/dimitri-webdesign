@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carnet de piste — Démontage Imola</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Work+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap');
+
+:root{
+  --paper: #EDE7D8;
+  --paper-2: #E2DAC6;
+  --ink: #20241F;
+  --ink-soft: #4B5148;
+  --orange: #E1590C;
+  --green: #2F4438;
+  --yellow: #E4B73C;
+  --stamp: #B23A2E;
+  --line: rgba(32,36,31,0.16);
+}
+
+*{box-sizing:border-box;}
+body{
+  margin:0;
+  background:var(--paper);
+  background-image: linear-gradient(var(--line) 1px, transparent 1px);
+  background-size: 100% 28px;
+  color:var(--ink);
+  font-family:'Work Sans', sans-serif;
+  padding-bottom:80px;
+}
+
+.wrap{max-width:640px; margin:0 auto; padding:0 18px;}
+
+header{
+  background:var(--green);
+  color:var(--paper);
+  padding:28px 18px 22px;
+  border-bottom:6px solid var(--orange);
+}
+header .eyebrow{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--yellow);
+  margin:0 0 6px;
+}
+header h1{
+  font-family:'Oswald', sans-serif;
+  font-weight:700;
+  font-size:clamp(28px,7vw,38px);
+  margin:0 0 4px;
+  letter-spacing:0.01em;
+}
+header p{ margin:0; font-size:14px; color:rgba(237,231,216,0.75); }
+
+.progress-shell{ max-width:640px; margin:-18px auto 22px; padding:0 18px; }
+.progress-card{
+  background:var(--paper);
+  border:1px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink);
+  padding:14px 16px;
+}
+.progress-top{
+  display:flex; justify-content:space-between; align-items:baseline;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12px;
+  margin-bottom:8px;
+}
+.progress-top strong{font-size:16px; font-family:'Oswald',sans-serif;}
+.track{ position:relative; height:10px; background:var(--paper-2); border:1px solid var(--ink); overflow:visible; }
+.track-fill{
+  position:absolute; left:0; top:0; bottom:0; width:0%;
+  background:repeating-linear-gradient(45deg, var(--yellow) 0 8px, #d9a92f 8px 16px);
+  transition:width .5s ease;
+}
+.runner{
+  position:absolute;
+  top:50%;
+  left:0%;
+  width:34px; height:34px;
+  transform:translate(-50%,-50%);
+  transition:left .6s cubic-bezier(.34,1.1,.4,1);
+  z-index:5;
+}
+.runner-bounce{
+  width:100%; height:100%;
+  border-radius:50%;
+  border:2px solid var(--paper);
+  box-shadow:0 0 0 2px var(--orange), 2px 3px 4px rgba(0,0,0,.35);
+  background:var(--ink) center/cover no-repeat;
+  animation:runbounce .5s ease-in-out infinite;
+}
+.runner.moving .runner-bounce{ animation:runbounce .28s ease-in-out infinite; }
+@keyframes runbounce{
+  0%,100%{ transform:translateY(0) rotate(-6deg); }
+  50%{ transform:translateY(-5px) rotate(6deg); }
+}
+.runner::after{
+  content:"";
+  position:absolute;
+  right:100%;
+  top:50%;
+  width:0; height:0;
+  transform:translateY(-50%);
+  border-top:2px solid transparent;
+  opacity:0;
+}
+.runner.moving::before, .runner.moving::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  right:calc(100% + 2px);
+  height:2px;
+  background:var(--ink-soft);
+  opacity:.5;
+  transform:translateY(-50%);
+}
+.runner.moving::before{ width:10px; top:calc(50% - 5px); }
+.runner.moving::after{ width:7px; top:calc(50% + 6px); opacity:.35; }
+.track-marks{ display:flex; justify-content:space-between; margin-top:4px; }
+.track-marks span{ width:2px; height:6px; background:var(--ink); opacity:.35; }
+
+.stop{
+  border:1px solid var(--ink);
+  background:var(--paper);
+  margin-bottom:16px;
+  position:relative;
+  box-shadow:4px 4px 0 rgba(32,36,31,0.15);
+}
+.stop.done{ box-shadow:4px 4px 0 var(--green); }
+.stop-head{ display:flex; align-items:center; gap:12px; padding:14px 16px; cursor:pointer; user-select:none; }
+.stop-num{
+  font-family:'Oswald', sans-serif; font-size:22px; font-weight:700;
+  color:var(--paper); background:var(--ink);
+  min-width:38px; height:38px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:50%; flex-shrink:0;
+}
+.stop.done .stop-num{background:var(--green);}
+.stop.next .stop-num{background:var(--orange);}
+.stop-titles{flex:1;}
+.stop-titles h2{ font-family:'Oswald', sans-serif; font-size:19px; margin:0; font-weight:600; }
+.stop-titles p{ margin:2px 0 0; font-size:12.5px; color:var(--ink-soft); }
+.chevron{ font-size:14px; color:var(--ink-soft); transition:transform .25s ease; }
+.stop.open .chevron{transform:rotate(180deg);}
+
+.stop-body{ display:none; padding:0 16px 18px; border-top:1px solid var(--line); }
+.stop.open .stop-body{display:block;}
+
+.sub{ margin-top:16px; padding-top:14px; }
+.sub:first-child{margin-top:14px; padding-top:0;}
+.sub + .sub{border-top:1px dashed var(--line);}
+.sub-label{
+  font-family:'IBM Plex Mono', monospace; font-size:11px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 8px;
+}
+
+.info-note{
+  font-size:12.5px; color:var(--ink-soft); background:var(--paper-2);
+  border-left:3px solid var(--orange); padding:6px 10px; margin-bottom:10px;
+}
+
+.media-row{ display:flex; gap:8px; margin-bottom:10px; flex-wrap:wrap; }
+.photo-frame{
+  width:64px; height:88px; flex-shrink:0;
+  border:1px solid var(--ink);
+  background:var(--paper-2) center/cover no-repeat;
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; color:var(--ink-soft);
+}
+.video-btn{
+  flex:1; min-width:140px;
+  border:1px solid var(--ink); background:var(--ink); color:var(--paper);
+  font-family:'Oswald', sans-serif; font-size:14px; font-weight:600;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  gap:8px; padding:0 10px;
+}
+.video-btn:hover{background:var(--orange); border-color:var(--orange);}
+.video-frame{ position:relative; width:100%; aspect-ratio:9/16; max-height:480px; background:#000; margin-bottom:12px; display:none; }
+.video-frame.shown{display:block;}
+.video-frame iframe{width:100%; height:100%; border:0;}
+
+.tasks{list-style:none; margin:0; padding:0;}
+.tasks li{
+  display:flex; align-items:flex-start; gap:10px; padding:7px 0;
+  font-size:14.5px; border-bottom:1px solid var(--line);
+}
+.tasks li:last-child{border-bottom:0;}
+.tasks input[type=checkbox]{
+  appearance:none; -webkit-appearance:none;
+  width:19px; height:19px; margin-top:1px;
+  border:1.5px solid var(--ink); flex-shrink:0; cursor:pointer; position:relative;
+}
+.tasks input[type=checkbox]:checked{background:var(--green); border-color:var(--green);}
+.tasks input[type=checkbox]:checked::after{
+  content:"✓"; position:absolute; inset:0; color:var(--paper);
+  font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;
+}
+.tasks label{cursor:pointer; flex:1;}
+.tasks li.checked label{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--line);}
+.tasks li.bonus label::before{
+  content:"🎁 Bonus — "; color:var(--orange); font-weight:600;
+}
+
+.stamp{ margin-top:14px; display:flex; align-items:center; justify-content:center; padding:10px 0; }
+.stamp-mark{
+  border:3px solid var(--stamp); color:var(--stamp);
+  font-family:'Oswald', sans-serif; font-weight:700; font-size:15px; letter-spacing:.05em;
+  padding:6px 18px; transform:rotate(-8deg) scale(0); border-radius:3px; opacity:0;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;
+}
+.stamp-mark.show{transform:rotate(-8deg) scale(1); opacity:0.9;}
+
+footer{ max-width:640px; margin:20px auto; padding:0 18px 30px; text-align:center; font-size:13px; color:var(--ink-soft); font-family:'IBM Plex Mono', monospace; }
+
+.finish-banner{ display:none; max-width:640px; margin:0 auto 18px; padding:0 18px; }
+.finish-banner.show{display:block;}
+.finish-banner .inner{
+  background:var(--orange); color:var(--paper); border:1px solid var(--ink);
+  box-shadow:4px 4px 0 var(--ink); padding:16px; text-align:center;
+  font-family:'Oswald', sans-serif; font-size:17px; font-weight:600;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">FIA WEC / ELMS — Imola</p>
+  <h1>Carnet de piste — Démontage</h1>
+  <p>Mission de Simon 🔧 — un tampon par étape, dans l'ordre, jusqu'au dernier chargement.</p>
+</header>
+
+<div class="progress-shell">
+  <div class="progress-card">
+    <div class="progress-top">
+      <span>Avancement</span>
+      <strong id="progress-label">0 / 10 étapes tamponnées</strong>
+    </div>
+    <div class="track">
+      <div class="track-fill" id="track-fill"></div>
+      <div class="runner" id="runner"><div class="runner-bounce" style="background-image:url('simon-avatar.png')"></div></div>
+    </div>
+    <div class="track-marks" id="track-marks"></div>
+  </div>
+</div>
+
+<div class="finish-banner" id="finish-banner">
+  <div class="inner">🏁 Mission terminée, tout est démonté et chargé. GG Simon.</div>
+</div>
+
+<div class="wrap" id="stops"></div>
+
+<footer>
+  Photo manquante ou vidéo qui ne charge pas → préviens Dimitri directement.<br>
+  <a href="#" id="reset-link" style="color:var(--ink-soft);">Réinitialiser la progression (nouvel événement)</a>
+</footer>
+
+<script>
+/* Dossier photos : photos-demontage/  (chemins relatifs ci-dessous) */
+const STOPS = [
+  { id:1, title:"Camion", subtitle:"Chargement du camion",
+    subs:[{ label:"Camion", ytId:"brGbT9CxuQo", photos:["photos-demontage/tent-scrut.JPG"],
+      tasks:["Débrancher câble","Enrouler câble","Ranger câble","Débrancher borne","Ranger borne flycase 63","Ranger boîtier borne flycase 62"]
+    }]
+  },
+  { id:2, title:"Scanettes", subtitle:"3 emplacements — flycase 64",
+    subs:[
+      { label:"Étape 1 — Entrée Senna", ytId:"JzgnQTPmjbg", photos:["photos-demontage/entree-senna.JPG"],
+        tasks:["Récupérer scanette entrée SENNA","Récupérer chargeur"] },
+      { label:"Étape 2 — Entrée Rivazza", ytId:"xfV-aIwvk2Y", photos:["photos-demontage/entree-rivazza.JPG"],
+        tasks:["Récupérer scanette entrée RIVAZZA","Récupérer chargeur"] },
+      { label:"Étape 3 — Rangement", ytId:"zG9FmGdIq4o", photos:["photos-demontage/scannette.JPG"],
+        tasks:["Ranger le tout — Flycase 64"] }
+    ]
+  },
+  { id:3, title:"Village", subtitle:"Stand village",
+    subs:[{ label:"Village", ytId:"uTGIbq0ZriY", photos:["photos-demontage/village.JPG"],
+      tasks:["Récupérer la borne et chargeur","Ranger matos flycase 63"] }]
+  },
+  { id:4, title:"CEO", subtitle:"Bureau CEO",
+    subs:[{ label:"CEO", ytId:"tHWpOVBwpGc", photos:["photos-demontage/CEO.JPG"],
+      tasks:["Débrancher borne","Ranger matos flycase 63"] }]
+  },
+  { id:5, title:"Trunk Radio", subtitle:"MRTC",
+    subs:[{ label:"Trunk Radio", ytId:"FhPXGoXnwRs", photos:["photos-demontage/MRTC-1.JPG","photos-demontage/MRTC-2.JPG"],
+      tasks:["Débrancher câble","Ranger câble fly 63"],
+      bonusTasks:["Aller récupérer borne bureau MRTC","Ranger dans la fly 63"] }]
+  },
+  { id:6, title:"Media", subtitle:"Media center — 2 étapes",
+    subs:[
+      { label:"Étape 1", ytId:"teo-OLsTVbc", photos:["photos-demontage/MEDIA-1.JPG"],
+        tasks:["Débrancher borne","Ranger borne fly 63"] },
+      { label:"Étape 2", ytId:"jL88PicpTJc", photos:["photos-demontage/MEDIA-2.JPG"],
+        tasks:["Vérifier que Jeanne n'oublie pas de débrancher sa borne et l'imprimante au media center"] }
+    ]
+  },
+  { id:7, title:"Bureau ACO", subtitle:"ACO",
+    subs:[{ label:"Bureau ACO", ytId:"pV0ZEk9ID1I", photos:["photos-demontage/ACO.JPG"],
+      tasks:["Débrancher borne","Ranger matos flycase 63"] }]
+  },
+  { id:8, title:"Bureau Race Control", subtitle:"Demi-flycase couplée à l'étape 10",
+    subs:[{ label:"Race Control", ytId:"C771RuPkD8Q", photos:["photos-demontage/RACE-DIRECTOR.JPG"],
+      note:"Demi-flycase couplée avec la demi-flycase des Stewards (étape 10).",
+      tasks:["Débrancher demi-fly","Ranger câble à l'intérieur","Vérifier que la Fly 100 est bien rangée, fermée (matériel SBG)","Vérifier que l'autre fly est bien rangée, fermée"] }]
+  },
+  { id:9, title:"Scrut", subtitle:"Contrôle technique",
+    subs:[{ label:"Scrut", ytId:"w3jqPt-hehQ", photos:["photos-demontage/SCRUT.JPG"],
+      tasks:["Débrancher borne","Ranger matos flycase 63"] }]
+  },
+  { id:10, title:"Stewards", subtitle:"Demi-flycase couplée à l'étape 8",
+    subs:[{ label:"Stewards", ytId:"uTV1UAVnbpA", photos:["photos-demontage/STEWARDS.JPG"],
+      note:"Demi-flycase couplée avec la demi-flycase du Race Control (étape 8).",
+      tasks:["Débrancher demi-fly","Ranger câble à l'intérieur","Assembler avec l'autre demi-fly"] }]
+  }
+];
+
+const STORAGE_KEY = 'demontage-imola-progress-v1';
+
+const state = STOPS.map(s => ({
+  id:s.id,
+  subsChecked: s.subs.map(sub => sub.tasks.map(()=>false)),
+  subsBonusChecked: s.subs.map(sub => (sub.bonusTasks||[]).map(()=>false))
+}));
+const stopOpenState = STOPS.map((_,i)=> i===0);
+
+function loadState(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const saved = JSON.parse(raw);
+    if(!Array.isArray(saved)) return;
+    saved.forEach((s, i) => {
+      if(!state[i] || !s) return;
+      (s.subsChecked||[]).forEach((arr, si) => {
+        if(!state[i].subsChecked[si]) return;
+        arr.forEach((v, ti) => { if(typeof v === 'boolean' && ti in state[i].subsChecked[si]) state[i].subsChecked[si][ti] = v; });
+      });
+      (s.subsBonusChecked||[]).forEach((arr, si) => {
+        if(!state[i].subsBonusChecked[si]) return;
+        arr.forEach((v, ti) => { if(typeof v === 'boolean' && ti in state[i].subsBonusChecked[si]) state[i].subsBonusChecked[si][ti] = v; });
+      });
+    });
+  }catch(e){ console.warn('Progression illisible, on repart de zéro.', e); }
+}
+
+function saveState(){
+  try{
+    const payload = state.map(s => ({ subsChecked:s.subsChecked, subsBonusChecked:s.subsBonusChecked }));
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  }catch(e){ console.warn('Sauvegarde impossible (mode privé ou stockage plein).', e); }
+}
+
+function resetState(){
+  if(!confirm('Remettre le carnet à zéro pour un nouvel événement ?')) return;
+  try{ localStorage.removeItem(STORAGE_KEY); }catch(e){}
+  state.forEach(s => {
+    s.subsChecked.forEach(arr => arr.fill(false));
+    s.subsBonusChecked.forEach(arr => arr.fill(false));
+  });
+  render();
+}
+
+const stopsEl = document.getElementById('stops');
+
+function totalTasks(){
+  return STOPS.reduce((n,s)=>n + s.subs.reduce((m,sub)=>m+sub.tasks.length+(sub.bonusTasks?sub.bonusTasks.length:0),0),0);
+}
+function checkedTasks(){
+  return state.reduce((n,st)=>{
+    const req = st.subsChecked.reduce((m,arr)=>m+arr.filter(Boolean).length,0);
+    const bon = st.subsBonusChecked.reduce((m,arr)=>m+arr.filter(Boolean).length,0);
+    return n+req+bon;
+  },0);
+}
+function stopDone(i){
+  return state[i].subsChecked.every(arr => arr.every(Boolean))
+      && state[i].subsBonusChecked.every(arr => arr.every(Boolean));
+}
+function firstUnfinishedIndex(){
+  for(let i=0;i<STOPS.length;i++) if(!stopDone(i)) return i;
+  return STOPS.length;
+}
+
+function render(){
+  stopsEl.innerHTML = '';
+  const activeIndex = firstUnfinishedIndex();
+
+  STOPS.forEach((stop, i) => {
+    const done = stopDone(i);
+    const isNext = i === activeIndex;
+    const card = document.createElement('div');
+    card.className = 'stop' + (done ? ' done' : '') + (isNext ? ' next' : '') + (stopOpenState[i] ? ' open' : '');
+
+    const head = document.createElement('div');
+    head.className = 'stop-head';
+    head.innerHTML = `
+      <div class="stop-num">${done ? '✓' : stop.id}</div>
+      <div class="stop-titles"><h2>${stop.title}</h2><p>${stop.subtitle}</p></div>
+      <div class="chevron">▾</div>`;
+    head.addEventListener('click', () => { stopOpenState[i] = !stopOpenState[i]; render(); });
+    card.appendChild(head);
+
+    const body = document.createElement('div');
+    body.className = 'stop-body';
+
+    stop.subs.forEach((sub, si) => {
+      const subEl = document.createElement('div');
+      subEl.className = 'sub';
+      let html = '';
+      if(stop.subs.length > 1) html += `<p class="sub-label">${sub.label}</p>`;
+      if(sub.note) html += `<div class="info-note">ℹ️ ${sub.note}</div>`;
+
+      html += `<div class="media-row">`;
+      (sub.photos||[]).forEach(p => {
+        html += `<div class="photo-frame" style="background-image:url('${p}')"></div>`;
+      });
+      html += `<button class="video-btn" data-stop="${i}" data-sub="${si}">▶ Voir la vidéo</button>`;
+      html += `</div>`;
+      html += `<div class="video-frame" id="video-${i}-${si}"></div>`;
+
+      html += `<ul class="tasks">`;
+      sub.tasks.forEach((task, ti) => {
+        const checked = state[i].subsChecked[si][ti];
+        html += `<li class="${checked?'checked':''}">
+          <input type="checkbox" id="t-${i}-${si}-${ti}" data-stop="${i}" data-sub="${si}" data-task="${ti}" data-kind="req" ${checked?'checked':''}>
+          <label for="t-${i}-${si}-${ti}">${task}</label>
+        </li>`;
+      });
+      (sub.bonusTasks||[]).forEach((task, ti) => {
+        const checked = state[i].subsBonusChecked[si][ti];
+        html += `<li class="bonus ${checked?'checked':''}">
+          <input type="checkbox" id="b-${i}-${si}-${ti}" data-stop="${i}" data-sub="${si}" data-task="${ti}" data-kind="bonus" ${checked?'checked':''}>
+          <label for="b-${i}-${si}-${ti}">${task}</label>
+        </li>`;
+      });
+      html += `</ul>`;
+      subEl.innerHTML = html;
+      body.appendChild(subEl);
+    });
+
+    const stampWrap = document.createElement('div');
+    stampWrap.className = 'stamp';
+    stampWrap.innerHTML = `<div class="stamp-mark ${done?'show':''}">CONTRÔLÉ ✓</div>`;
+    body.appendChild(stampWrap);
+
+    card.appendChild(body);
+    stopsEl.appendChild(card);
+  });
+
+  stopsEl.querySelectorAll('input[type=checkbox]').forEach(cb=>{
+    cb.addEventListener('change', e=>{
+      const {stop, sub, task, kind} = e.target.dataset;
+      if(kind==='bonus') state[stop].subsBonusChecked[sub][task] = e.target.checked;
+      else state[stop].subsChecked[sub][task] = e.target.checked;
+      saveState();
+      render();
+    });
+  });
+  stopsEl.querySelectorAll('.video-btn').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      e.stopPropagation();
+      const {stop, sub} = btn.dataset;
+      const frame = document.getElementById(`video-${stop}-${sub}`);
+      const ytId = STOPS[stop].subs[sub].ytId;
+      frame.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${ytId}?rel=0" allow="autoplay; encrypted-media" allowfullscreen title="Vidéo consignes"></iframe>`;
+      frame.classList.add('shown');
+    });
+  });
+
+  updateProgress();
+}
+
+function updateProgress(){
+  const total = totalTasks();
+  const done = checkedTasks();
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('track-fill').style.width = pct + '%';
+
+  const runner = document.getElementById('runner');
+  const prevPct = parseFloat(runner.dataset.pct || '0');
+  runner.style.left = `calc(${pct}% * 0.94 + 3%)`;
+  runner.dataset.pct = pct;
+  if(pct !== prevPct){
+    runner.classList.add('moving');
+    clearTimeout(runner._t);
+    runner._t = setTimeout(()=> runner.classList.remove('moving'), 700);
+  }
+
+  const stopsDoneCount = STOPS.filter((_,i)=>stopDone(i)).length;
+  document.getElementById('progress-label').textContent = `${stopsDoneCount} / ${STOPS.length} étapes tamponnées`;
+
+  const marks = document.getElementById('track-marks');
+  marks.innerHTML = STOPS.map(()=>'<span></span>').join('');
+
+  document.getElementById('finish-banner').classList.toggle('show', stopsDoneCount === STOPS.length);
+}
+
+loadState();
+render();
+document.getElementById('reset-link').addEventListener('click', e => { e.preventDefault(); resetState(); });
+</script>
+</body>
+</html>

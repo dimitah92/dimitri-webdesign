@@ -219,7 +219,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v12 · 06/06/2026</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v14 · 03/09/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>
@@ -231,7 +231,7 @@ header {
 </div>
 
 <div class="mode-bar">
-  <button class="mode-tab active" id="tab-day"  onclick="setMode('day',this)">📅 15 du jour</button>
+  <button class="mode-tab active" id="tab-day"  onclick="setMode('day',this)">📅 30 du jour</button>
   <button class="mode-tab" id="tab-all"  onclick="setMode('all',this)">🌐 Tout</button>
   <button class="mode-tab" id="tab-conj" onclick="setMode('conjugaison',this)">📝 Conjugaison</button>
   <button class="mode-tab" id="tab-voc"  onclick="setMode('vocabulaire',this)">📦 Vocabulaire</button>
@@ -728,6 +728,206 @@ const ALL_EX = [
     answer:'rarement', fr:'raramente = rarement' },
   { id:'gv12', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'todos os dias',
     answer:'tous les jours', fr:'todos os dias = tous les jours' },
+
+  // ══ AULA 14/08 & 28/08 — VOCABULAIRE FRUITS & NATURE ══
+  { id:'a2_v1', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a natureza',
+    answer:'la nature', accept:['nature'], fr:'a natureza = la nature' },
+  { id:'a2_v2', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'banhar-se',
+    answer:'se baigner', accept:['se bainer'], fr:'banhar-se = se baigner' },
+  { id:'a2_v3', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'nadar',
+    answer:'nager', fr:'nadar = nager' },
+  { id:'a2_v4', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o mergulho submarino',
+    answer:'la plongée sous-marine', accept:['plongée sous-marine','la plongee sous-marine'], fr:'o mergulho submarino = la plongée sous-marine' },
+  { id:'a2_v5', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'mergulhar',
+    answer:'plonger', fr:'mergulhar = plonger ✦ eu mergulho / você mergulha' },
+  { id:'a2_v6', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o morango',
+    answer:'la fraise', accept:['fraise'], fr:'o morango = la fraise' },
+  { id:'a2_v7', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o pêssego',
+    answer:'la pêche', accept:['peche','la peche'], fr:'o pêssego = la pêche' },
+  { id:'a2_v8', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o mamão',
+    answer:'la papaye', accept:['papaye'], fr:'o mamão = la papaye' },
+  { id:'a2_v9', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o abacaxi',
+    answer:'l\'ananas', accept:['ananas'], fr:'o abacaxi = l\'ananas' },
+  { id:'a2_v10', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a framboesa',
+    answer:'la framboise', accept:['framboise'], fr:'a framboesa = la framboise' },
+  { id:'a2_v11', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a manga',
+    answer:'la mangue', accept:['mangue'], fr:'a manga = la mangue' },
+  { id:'a2_v12', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o passatempo',
+    answer:'le passe-temps', accept:['passe-temps','loisir'], fr:'o passatempo = le passe-temps / loisir' },
+
+  // ══ EXPRESSIONS — GOSTOS (GOÛTS) ══
+  { id:'a2_v13', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Eu sou louco(a) por…',
+    answer:'je suis fou/folle de…', accept:['je suis fou de','je raffole de'], fr:'Eu sou louco(a) por… = Je suis fou/folle de… / Je raffole de…' },
+  { id:'a2_v14', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Eu sou apaixonado(a) por…',
+    answer:'je suis passionné(e) par…', accept:['je suis passionné par','je suis amoureux de'], fr:'Eu sou apaixonado(a) por… = Je suis passionné(e) par… / Je suis amoureux/se de…' },
+  { id:'a2_v15', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'interessar-se por',
+    answer:'s\'intéresser à', accept:['s intéresser à'], fr:'interessar-se por = s\'intéresser à' },
+  { id:'a2_v16', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o fim de semana',
+    answer:'le week-end', accept:['week-end','weekend'], fr:'o fim de semana = le week-end (fam: findi)' },
+  { id:'a2_v17', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o começo',
+    answer:'le début', accept:['debut','le commencement'], fr:'o começo = le début / le commencement' },
+  { id:'a2_v18', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'depende',
+    answer:'ça dépend', accept:['ca depend'], fr:'depende = ça dépend' },
+
+  // ══ AULA 28/08 — MONDE DU TRAVAIL ══
+  { id:'a3_v1', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'atuar',
+    answer:'exercer / être présent', accept:['exercer','être présent','opérer'], fr:'atuar = exercer une activité / être présent (entreprise ou professionnel)' },
+  { id:'a3_v2', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'chato(a)',
+    answer:'ennuyeux / pénible', accept:['ennuyeux','pénible','chiant'], fr:'chato(a) = ennuyeux / pénible / casse-pieds' },
+  { id:'a3_v3', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'legal',
+    answer:'sympa / cool', accept:['sympa','cool','bien'], fr:'legal = sympa / cool (contraire de chato)' },
+  { id:'a3_v4', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'achar',
+    answer:'trouver', accept:['penser','croire'], fr:'achar = trouver (dans tous ses sens) / penser / croire' },
+  { id:'a3_v5', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a/o diarista',
+    answer:'femme / homme de ménage', accept:['femme de ménage','homme de ménage'], fr:'a/o diarista = femme / homme de ménage' },
+  { id:'a3_v6', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'o garçom / a garçonete',
+    answer:'le serveur / la serveuse', accept:['serveur','serveuse'], fr:'garçom = serveur / garçonete = serveuse' },
+  { id:'a3_v7', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Moço / Moça',
+    answer:'monsieur / mademoiselle (pour appeler un serveur)', accept:['monsieur','mademoiselle'], fr:'Moço / Moça = façon informelle mais courtoise d\'appeler un serveur' },
+  { id:'a3_v8', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'estou desempregado(a)',
+    answer:'je suis au chômage', accept:['je suis sans emploi','chômage'], fr:'estou desempregado(a) = je suis au chômage / sans emploi' },
+  { id:'a3_v9', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'sou aposentado(a)',
+    answer:'je suis retraité(e)', accept:['retraité','retraitée'], fr:'sou aposentado(a) = je suis retraité(e)' },
+  { id:'a3_v10', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'gratificante',
+    answer:'gratifiant', accept:['enrichissant'], fr:'gratificante = gratifiant(e)' },
+  { id:'a3_v11', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'demais',
+    answer:'trop', fr:'demais = trop ✦ Trabalho demais! = Je travaille trop!' },
+  { id:'a3_v12', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a área',
+    answer:'le domaine / le secteur', accept:['domaine','secteur'], fr:'a área = le domaine / le secteur' },
+
+  // ══ EXPRESSIONS TRAVAIL ══
+  { id:'a3_v13', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'independente / profissional liberal',
+    answer:'indépendant / freelance', accept:['indépendant','freelance'], fr:'independente / profissional liberal = indépendant / freelance' },
+  { id:'a3_v14', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'a corrida automobilística',
+    answer:'la course automobile', accept:['course automobile'], fr:'a corrida automobilística = la course automobile' },
+
+  // ══ EMAIL INFORMAL / FORMAL ══
+  { id:'a3_v15', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Atenciosamente',
+    answer:'cordialement', accept:['bien cordialement'], fr:'Atenciosamente = Cordialement (formule de fin d\'email formel)' },
+  { id:'a3_v16', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'Prezado(a)',
+    answer:'cher / chère', accept:['cher','chère'], fr:'Prezado(a) = Cher/Chère (début d\'email formel)' },
+  { id:'a3_v17', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'um abraço',
+    answer:'une accolade / bisous', accept:['bisous','bises','accolade'], fr:'um abraço = une accolade / bises (fin d\'email informel)' },
+  { id:'a3_v18', cat:'vocabulaire', type:'word', prompt:'Traduis en français :', q:'saudade',
+    answer:'tu me manques / nostalgie', accept:['tu me manques','nostalgie'], fr:'saudade = tu me manques / nostalgie (fin email informel)' },
+
+  // ══ TEXTES À TROUS ══
+  { id:'a2_t1', cat:'trou', type:'trou',
+    prompt:'Complète avec le bon verbe (gostar / adorar / interessar-se) :',
+    parts:['Eu ','  de viajar. Ela ','  por esportes. Nós ','  chocolate!'],
+    answers:['gosto','se interessa','adoramos'], hints:['gostar+de','interessar-se por','adorar'],
+    fr:'J\'aime voyager. Elle s\'intéresse aux sports. Nous adorons le chocolat!' },
+
+  { id:'a2_t2', cat:'trou', type:'trou',
+    prompt:'só ou sozinho(a) ? Complète :',
+    parts:['Eu ','  tomo vinho branco. (seulement)\nEla vive ','  . (seule)'],
+    answers:['só','sozinha'], hints:['só = seulement','sozinha = seule'],
+    fr:'Je bois seulement du vin blanc. Elle vit seule.' },
+
+  { id:'a2_t3', cat:'trou', type:'trou',
+    prompt:'Complète avec "há" :',
+    parts:['','  quanto tempo você é professora?\n','  mais de 15 anos.\n','  4 anos que eu trabalho só com isso.'],
+    answers:['Há','Há','Há'], hints:['há quanto tempo = depuis combien de temps','há = il y a / depuis','há + durée'],
+    fr:'Depuis combien de temps êtes-vous professeure ? Depuis plus de 15 ans. Depuis 4 ans que je travaille seulement avec ça.' },
+
+  { id:'a3_t1', cat:'trou', type:'trou',
+    prompt:'atuar — complète avec la bonne forme :',
+    parts:['Nestlé ','  na Suíça e em muitos outros países.\nDimitri ','  como chefe de projetos.'],
+    answers:['atua','atua'], hints:['3ª pers. sing.','3ª pers. sing.'],
+    fr:'Nestlé est présente en Suisse et dans beaucoup d\'autres pays. Dimitri est chef de projet.' },
+
+  { id:'a3_t2', cat:'trou', type:'trou',
+    prompt:'Complète avec gostar + contraction :',
+    parts:['Eu gosto ','  meus colegas. (de + os)\nEu gosto ','  trabalho. (de + o)'],
+    answers:['dos','do'], hints:['de + os = dos','de + o = do'],
+    fr:'J\'aime mes collègues. J\'aime mon travail.' },
+
+  // ══ TRADUCTIONS ══
+  { id:'a2_r1', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Je suis passionné de plongée sous-marine.',
+    answer:'eu sou apaixonado por mergulho submarino', display:'Eu sou apaixonado por mergulho submarino.',
+    accept:['sou apaixonado por mergulho submarino'],
+    fr:'Eu sou apaixonado por mergulho submarino. ✦ apaixonado por = passionné de' },
+
+  { id:'a2_r2', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Ça dépend de qui, du temps et de l\'humeur.',
+    answer:'depende com quem do tempo do humor', display:'Depende com quem, do tempo, do humor.',
+    accept:['depende de quem do tempo do humor'],
+    fr:'Depende com quem, do tempo, do humor. ✦ depende = ça dépend' },
+
+  { id:'a2_r3', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Je suis fou de chocolat.',
+    answer:'eu sou louco por chocolate', display:'Eu sou louco por chocolate.',
+    accept:['sou louco por chocolate'],
+    fr:'Eu sou louco por chocolate. ✦ louco(a) por = fou/folle de' },
+
+  { id:'a3_r1', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Mon travail est gratifiant.',
+    answer:'meu trabalho e gratificante', display:'Meu trabalho é gratificante.',
+    accept:['o meu trabalho e gratificante','tenho um trabalho gratificante'],
+    fr:'Meu trabalho é gratificante. ✦ gratificante = gratifiant' },
+
+  { id:'a3_r2', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Je travaille dans le domaine de la course automobile.',
+    answer:'trabalho na area de corridas automobilisticas', display:'Trabalho na área de corridas automobilísticas.',
+    accept:['eu trabalho na area de corridas automobilisticas'],
+    fr:'Trabalho na área de corridas automobilísticas.' },
+
+  { id:'a3_r3', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Je voyage beaucoup pour le travail.',
+    answer:'viajo muito a trabalho', display:'Viajo muito a trabalho.',
+    accept:['eu viajo muito a trabalho','viajo muito por trabalho'],
+    fr:'Viajo muito a trabalho. ✦ a trabalho = pour le travail' },
+
+  { id:'a3_r4', cat:'traduction', type:'trad',
+    prompt:'Traduis en portugais :',
+    q:'Mon chef est sympa ou pénible ?',
+    answer:'seu chefe e legal ou chato', display:'Seu chefe é legal ou chato?',
+    accept:['o seu chefe e legal ou chato'],
+    fr:'Seu chefe é legal ou chato? ✦ legal = sympa / chato = pénible' },
+
+  // ══ CHOIX MULTIPLE ══
+  { id:'a2_m1', cat:'choix', type:'choix',
+    prompt:'só ou sozinho(a) ?',
+    q:'"Je vis seul(e)" en portugais :',
+    choices:['Eu vivo só.','Eu vivo sozinho.','Eu vivo somente.','Eu vivo solitário.'], answer:1,
+    fr:'sozinho(a) = seul(e) (état) / só / somente = seulement (adverbe de restriction)' },
+
+  { id:'a2_m2', cat:'choix', type:'choix',
+    prompt:'Qu\'est-ce que = ?',
+    q:'"O que" vs "Que" — laquelle signifie "qu\'est-ce que" ?',
+    choices:['Que','O que','Qual','Do que'], answer:1,
+    fr:'o que = qu\'est-ce que / que = quel(le) / qual = lequel / laquelle' },
+
+  { id:'a2_m3', cat:'choix', type:'choix',
+    prompt:'Choisis la bonne expression :',
+    q:'"Depuis combien de temps…" en portugais :',
+    choices:['Desde quando…','Há quanto tempo…','Faz quanto tempo que…','A et C sont correctes'], answer:3,
+    fr:'Há quanto tempo… et Faz quanto tempo… sont toutes les deux correctes pour "depuis combien de temps"' },
+
+  { id:'a3_m1', cat:'choix', type:'choix',
+    prompt:'Choisis la bonne traduction :',
+    q:'"Nestlé atua na Suíça" signifie :',
+    choices:['Nestlé travaille en Suisse.','Nestlé joue en Suisse.','Nestlé est présente en Suisse.','Nestlé agit en Suisse.'], answer:2,
+    fr:'atuar = exercer une activité / être présent ✦ Nestlé est présente en Suisse.' },
+
+  { id:'a3_m2', cat:'choix', type:'choix',
+    prompt:'Email formel — comment terminer ?',
+    q:'Laquelle est une formule de fin d\'email formel en portugais ?',
+    choices:['Beijos!','Saudade!','Atenciosamente','Tudo bem?'], answer:2,
+    fr:'Atenciosamente = Cordialement ✦ pour un email formel. Beijos / Saudade = informel.' },
+
+  { id:'a3_m3', cat:'choix', type:'choix',
+    prompt:'Choisis la bonne traduction de "demais" :',
+    q:'"Trabalho demais!" signifie :',
+    choices:['Je travaille davantage !','Je travaille trop !','Je travaille beaucoup !','Je ne travaille plus !'], answer:1,
+    fr:'demais = trop ✦ Trabalho demais! = Je travaille trop!' },
 ];
 
 // ─── HELPERS ─────────────────────────────────────────────────────
@@ -754,11 +954,73 @@ function isOk(ex, inputs){
 }
 
 // ─── STATE ───────────────────────────────────────────────────────
-const DAILY_COUNT = 25;
+const DAILY_COUNT = 30;
+
+// Weight by lesson — higher = appears more often
+// 3 tiers: recent (3×), mid (2×), older (1×)
+const WEIGHTS = {
+  // Aulas 14/08 & 28/08 — most recent (weight 3)
+  a2_v1:3,a2_v2:3,a2_v3:3,a2_v4:3,a2_v5:3,a2_v6:3,a2_v7:3,a2_v8:3,a2_v9:3,a2_v10:3,
+  a2_v11:3,a2_v12:3,a2_v13:3,a2_v14:3,a2_v15:3,a2_v16:3,a2_v17:3,a2_v18:3,
+  a3_v1:3,a3_v2:3,a3_v3:3,a3_v4:3,a3_v5:3,a3_v6:3,a3_v7:3,a3_v8:3,a3_v9:3,a3_v10:3,
+  a3_v11:3,a3_v12:3,a3_v13:3,a3_v14:3,a3_v15:3,a3_v16:3,a3_v17:3,a3_v18:3,
+  a2_t1:3,a2_t2:3,a2_t3:3,a3_t1:3,a3_t2:3,
+  a2_r1:3,a2_r2:3,a2_r3:3,a3_r1:3,a3_r2:3,a3_r3:3,a3_r4:3,
+  a2_m1:3,a2_m2:3,a2_m3:3,a3_m1:3,a3_m2:3,a3_m3:3,
+  // Gramática Ativa U5-U8 + aulas mai/juin (weight 2)
+  g5_c1:2,g5_c2:2,g5_c3:2,g5_t1:2,g5_q1:2,g5_trad1:2,
+  g6_c1:2,g6_c2:2,g6_c3:2,g6_t1:2,g6_q1:2,g6_trad1:2,
+  g7_c1:2,g7_c2:2,g7_c3:2,g7_c4:2,g7_c5:2,g7_c6:2,g7_t1:2,g7_t2:2,g7_q1:2,g7_q2:2,g7_trad1:2,g7_trad2:2,
+  g8_c1:2,g8_c2:2,g8_c3:2,g8_c4:2,g8_t1:2,g8_t2:2,g8_q1:2,g8_q2:2,g8_trad1:2,g8_trad2:2,
+  gv1:2,gv2:2,gv3:2,gv4:2,gv5:2,gv6:2,gv7:2,gv8:2,gv9:2,gv10:2,gv11:2,gv12:2,
+  v19:2,v20:2,v21:2,v22:2,v23:2,v24:2,v25:2,v26:2,
+  r9:2,r10:2,r11:2,r12:2,r13:2,
+  t10:2,t11:2,t12:2,t13:2,
+  m9:2,m10:2,
+  // Everything else — older lessons (weight 1, default)
+};
+
+function getWeight(ex){ return WEIGHTS[ex.id] || 1; }
+
+// Build a weighted pool: each exercise appears N times in the candidate array
+function weightedPool(indices){
+  const pool = [];
+  indices.forEach(i => {
+    const w = getWeight(ALL_EX[i]);
+    for(let k=0; k<w; k++) pool.push(i);
+  });
+  return pool;
+}
+
+// Pick N unique exercises from weighted pool
+function weightedSample(indices, n){
+  const pool = weightedPool(indices);
+  const result = [];
+  const used = new Set();
+  const shuffled = shuffle(pool);
+  for(const idx of shuffled){
+    if(!used.has(idx)){
+      used.add(idx);
+      result.push(idx);
+      if(result.length >= n) break;
+    }
+  }
+  // If not enough weighted results, fill from remaining
+  if(result.length < n){
+    for(const idx of shuffle(indices)){
+      if(!used.has(idx)){
+        used.add(idx);
+        result.push(idx);
+        if(result.length >= n) break;
+      }
+    }
+  }
+  return result;
+}
+
 let mode = 'day';
 let queue = [], cur = 0, correct = 0, answered = 0;
 let choiceSel = null;
-// Per-question flip state: maps queue index → true (flipped = FR→PT)
 let flips = {};
 
 function todayKey(){
@@ -767,24 +1029,32 @@ function todayKey(){
 }
 
 function buildQueue(){
+  let allIndices = ALL_EX.map((_,i)=>i);
+  let filteredIndices = mode==='all' ? allIndices
+    : mode==='day' ? allIndices
+    : allIndices.filter(i=>ALL_EX[i].cat===mode);
+
   let pool;
   if(mode==='day'){
+    // Seeded for today so same 30 questions all day, but weighted toward recent
+    // We can't seed weighted — instead seed the day selection via seededShuffle of weighted pool
     const seed = todayKey().split('-').reduce((a,b)=>a*31+parseInt(b),0);
-    const seeded = seededShuffle(ALL_EX.map((_,i)=>i), seed);
-    pool = seeded.slice(0, DAILY_COUNT);
-  } else if(mode==='all'){
-    pool = shuffle(ALL_EX.map((_,i)=>i));
+    const wp = weightedPool(filteredIndices);
+    const seededWp = seededShuffle(wp, seed);
+    const used = new Set();
+    pool = [];
+    for(const idx of seededWp){
+      if(!used.has(idx)){ used.add(idx); pool.push(idx); }
+      if(pool.length >= DAILY_COUNT) break;
+    }
   } else {
-    pool = shuffle(ALL_EX.map((_,i)=>i).filter(i=>ALL_EX[i].cat===mode));
+    pool = weightedSample(filteredIndices, filteredIndices.length);
   }
+
   queue = pool; cur = 0; correct = 0; answered = 0; choiceSel = null;
-  // Randomly flip word exercises only (trad is always FR→PT now)
   flips = {};
   queue.forEach((idx, qi) => {
-    const ex = ALL_EX[idx];
-    if(ex.type === 'word') {
-      flips[qi] = Math.random() < 0.5;
-    }
+    if(ALL_EX[idx].type === 'word') flips[qi] = Math.random() < 0.5;
   });
 }
 
@@ -836,7 +1106,7 @@ function dayBanner(){
   const months = ['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
   const label = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   document.getElementById('h-date').textContent = label;
-  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 25 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
+  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 30 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
 }
 
 function buildCard(ex){
@@ -1027,13 +1297,12 @@ function showEnd(main){
 function restart(){ buildQueue(); cur=0; correct=0; answered=0; showCurrent(); }
 
 function reshuffleDay(){
-  const pool = shuffle(ALL_EX.map((_,i)=>i));
-  queue = pool.slice(0, DAILY_COUNT);
+  const allIndices = ALL_EX.map((_,i)=>i);
+  queue = weightedSample(allIndices, DAILY_COUNT);
   cur=0; correct=0; answered=0; choiceSel=null;
   flips = {};
   queue.forEach((idx, qi) => {
-    const ex = ALL_EX[idx];
-    if(ex.type === 'word') flips[qi] = Math.random() < 0.5;
+    if(ALL_EX[idx].type === 'word') flips[qi] = Math.random() < 0.5;
   });
   showCurrent();
 }

@@ -94,7 +94,15 @@ header {
 .blank {
   display: inline-block; background: transparent; border: none; border-bottom: 2px solid var(--blue);
   color: var(--blue); font-family: 'DM Mono', monospace; font-size: 0.86rem; font-weight: 500;
-  width: 96px; padding: 1px 4px; outline: none; text-align: center; transition: border-color 0.15s;
+  width: 96px; padding: 1px 4px; outline: none; text-align: left; transition: border-color 0.15s;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+/* Scrolling placeholder on focus */
+.blank:focus { animation: none; }
+@keyframes scroll-hint {
+  0%   { text-indent: 0; }
+  50%  { text-indent: -40px; }
+  100% { text-indent: 0; }
 }
 .blank:focus { border-bottom-color: var(--ink); }
 .blank.ok { border-bottom-color: var(--green); color: var(--green); }
@@ -219,7 +227,7 @@ header {
     <div>
       <div class="h-title">Quiz du jour</div>
       <div class="h-date" id="h-date">—</div>
-      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v14 · 03/09/2026</div>
+      <div style="margin-top:3px;display:inline-block;background:#2d6a3f;color:#a8f0b8;font-size:0.62rem;font-weight:700;letter-spacing:1px;padding:2px 7px;border-radius:3px">v16 · 03/09/2026</div>
     </div>
   </div>
   <div class="score-badge" id="score-badge">0/0</div>
@@ -283,13 +291,13 @@ const ALL_EX = [
     parts:['Estou ',' casa ',' minha mãe.'], answers:['na','da'], hints:['em+a','de+a'],
     fr:'Je suis à la maison de ma mère.' },
   { id:'t3', cat:'trou', type:'trou', prompt:'ser ou morar ? Complète :',
-    parts:['Ela ',' professora primária e ',' em La Rochelle.'], answers:['é','mora'], hints:['ser','morar'],
+    parts:['Ela ',' professora primária e ',' em La Rochelle.'], answers:['é','mora'], hints:['ser ou estar ?','morar ou estar ?'],
     fr:'Elle est professeure des écoles et habite à La Rochelle.' },
   { id:'t4', cat:'trou', type:'trou', prompt:'ser ou estar avec adjectif ?',
     parts:['Ela ',' feliz — de nature.\nEla ',' feliz — en ce moment.'], answers:['é','está'], hints:['durable','ponctuel'],
     fr:'Elle est heureuse (de nature). Elle est heureuse (en ce moment).' },
   { id:'t5', cat:'trou', type:'trou', prompt:'gostar + DE — complète :',
-    parts:['Eu gosto ',' chocolate e ',' correr na praia.'], answers:['de','de'], hints:['gostar+DE','gostar+DE'],
+    parts:['Eu gosto ',' chocolate e ',' correr na praia.'], answers:['de','de'], hints:['quelle préposition ?','quelle préposition ?'],
     fr:'J\'aime le chocolat et courir sur la plage.' },
   { id:'t6', cat:'trou', type:'trou', prompt:'Contractions por — complète :',
     parts:['Obrigado ',' flores! Parabéns ',' casamento!'], answers:['pelas','pelo'], hints:['por+as','por+o'],
@@ -298,11 +306,11 @@ const ALL_EX = [
     parts:['É ',' meu celular e é ',' minha garrafa de água.'], answers:['o','a'], hints:['masc.','fém.'],
     fr:'C\'est mon portable et c\'est ma bouteille d\'eau.' },
   { id:'t8', cat:'trou', type:'trou', prompt:'Desde ou há ? Complète :',
-    parts:['Moro em Paris ',' 2014. Tenho este emprego ',' 3 anos.'], answers:['desde','há'], hints:['date précise','durée'],
+    parts:['Moro em Paris ',' 2014. Tenho este emprego ',' 3 anos.'], answers:['desde','há'], hints:['desde ou há ?','desde ou há ?'],
     fr:'J\'habite à Paris depuis 2014. J\'ai ce travail depuis 3 ans.' },
   { id:'t9', cat:'trou', type:'trou', prompt:'Demonstratifs — complète :',
     parts:['','  é meu amigo (juste à côté).\n','  é meu colega (un peu plus loin).\n','  é meu professor (là-bas).'],
-    answers:['Este','Esse','Aquele'], hints:['muito perto','um pouco perto','longe'],
+    answers:['Este','Esse','Aquele'], hints:['ce/cet (juste là) → ?','celui-là → ?','celui là-bas → ?'],
     fr:'Celui-ci est mon ami. Celui-là est mon collègue. Celui là-bas est mon prof.' },
   { id:'t10', cat:'trou', type:'trou', prompt:'Pluriel — complète :',
     parts:['Um jornal → dois ','.\nUma cor → três ','.\nUm hotel → vários ','.'],
@@ -430,7 +438,7 @@ const ALL_EX = [
 
   { id:'g1_t1', cat:'trou', type:'trou', prompt:'ser — complète (U1) :',
     parts:['A rosa ',' uma flor. Eu e a Carla ',' amigas. Eles ',' socialistas.'],
-    answers:['é','somos','são'], hints:['3ª sing.','1ª pl.','3ª pl.'],
+    answers:['é','somos','são'], hints:['ser ?','ser ?','ser ?'],
     fr:'La rose est une fleur. Carla et moi sommes amies. Ils sont socialistes.' },
 
   { id:'g1_t2', cat:'trou', type:'trou', prompt:'ser — complète (U1) :',
@@ -456,12 +464,12 @@ const ALL_EX = [
 
   { id:'g2_t1', cat:'trou', type:'trou', prompt:'estar — complète (U2) :',
     parts:['O livro ',' em cima da mesa. Hoje ',' muito calor lá fora. Eles ',' sentados à mesa.'],
-    answers:['está','está','estão'], hints:['localisation','météo','état temporaire'],
+    answers:['está','está','estão'], hints:['estar ?','estar ?','estar ?'],
     fr:'Le livre est sur la table. Il fait très chaud dehors. Ils sont assis à table.' },
 
   { id:'g2_t2', cat:'trou', type:'trou', prompt:'estar com — complète (U2) :',
     parts:['Estou com ','  , mas não estou com ','  . Você ',' com sono?'],
-    answers:['sede','fome','está'], hints:['soif','faim','estar'],
+    answers:['sede','fome','está'], hints:['soif → ?','faim → ?','estar ?'],
     fr:'J\'ai soif mais je n\'ai pas faim. Tu as sommeil ?' },
 
   { id:'g2_q1', cat:'choix', type:'choix', prompt:'estar — choisir la bonne phrase :',
@@ -472,7 +480,7 @@ const ALL_EX = [
   // ══ GRAMATICA ATIVA — UNIDADE 3 : SER vs ESTAR ══
   { id:'g3_t1', cat:'trou', type:'trou', prompt:'ser ou estar ? (U3) :',
     parts:['O quadro da sala ',' limpo. O banco ',' fechado. Meus primos ',' do Norte do Brasil.'],
-    answers:['está','está','são'], hints:['résultat d\'action','état temporaire','origine'],
+    answers:['está','está','são'], hints:['ser ou estar ?','ser ou estar ?','ser ou estar ?'],
     fr:'Le tableau de la salle est propre. La banque est fermée. Mes cousins sont du Nord du Brésil.' },
 
   { id:'g3_t2', cat:'trou', type:'trou', prompt:'ser ou estar ? (U3) :',
@@ -493,12 +501,12 @@ const ALL_EX = [
   // ══ GRAMATICA ATIVA — UNIDADE 4 : ESTAR + GERÚNDIO ══
   { id:'g4_t1', cat:'trou', type:'trou', prompt:'Gérondif — forme correcte :',
     parts:['falar → ','   / comer → ','   / abrir → ','.'],
-    answers:['falando','comendo','abrindo'], hints:['-ar+ndo','-er+ndo','-ir+ndo'],
+    answers:['falando','comendo','abrindo'], hints:['gérondif de falar ?','gérondif de comer ?','gérondif de abrir ?'],
     fr:'falar = parler / comer = manger / abrir = ouvrir ✦ falando / comendo / abrindo (infinitif - r + ndo)' },
 
   { id:'g4_t2', cat:'trou', type:'trou', prompt:'estar + gérondif — complète (U4) :',
     parts:['Ela ',' lendo. Eles ',' trabalhando. O Carlos ',' pondo o carro na garagem.'],
-    answers:['está','estão','está'], hints:['3ª sing.','3ª pl.','3ª sing.'],
+    answers:['está','estão','está'], hints:['estar ?','estar ?','estar ?'],
     fr:'Elle est en train de lire. Ils sont en train de travailler. Carlos est en train de garer la voiture.' },
 
   { id:'g4_q1', cat:'choix', type:'choix', prompt:'Gérondif de "pôr" :',
@@ -541,7 +549,7 @@ const ALL_EX = [
 
   { id:'g5_t1', cat:'trou', type:'trou', prompt:'Verbes en -ar — complète (U5) :',
     parts:['Eu me ',' sempre às 8h. Normalmente ',' às 13h. O Sr. Ramos ',' o jornal todos os dias.'],
-    answers:['levanto','almoçamos','compra'], hints:['levantar','almoçar','comprar'],
+    answers:['levanto','almoçamos','compra'], hints:['se lever → ?','déjeuner → ?','acheter → ?'],
     fr:'Je me lève toujours à 8h. Normalement nous déjeunons à 13h. M. Ramos achète le journal tous les jours.' },
 
   { id:'g5_q1', cat:'choix', type:'choix', prompt:'Verbe en -ar — forme correcte :',
@@ -573,7 +581,7 @@ const ALL_EX = [
 
   { id:'g6_t1', cat:'trou', type:'trou', prompt:'Verbes en -er — complète (U6) :',
     parts:['As crianças ',' linguas com facilidade. Eles ',' aos pais todas as semanas. No Nordeste do Brasil ',' pouco.'],
-    answers:['aprendem','escrevem','chove'], hints:['aprender','escrever','chover'],
+    answers:['aprendem','escrevem','chove'], hints:['apprendre → ?','écrire → ?','pleuvoir → ?'],
     fr:'Les enfants apprennent les langues facilement. Ils écrivent à leurs parents toutes les semaines. Dans le Nordeste il pleut peu.' },
 
   { id:'g6_q1', cat:'choix', type:'choix', prompt:'1ère personne irrégulière en -er :',
@@ -620,12 +628,12 @@ const ALL_EX = [
 
   { id:'g7_t1', cat:'trou', type:'trou', prompt:'Verbes irréguliers — complète (U7) :',
     parts:['Não ',' sair, porque tenho que estudar. Ela ',' falar muitas línguas. Eu ',' aniversário em abril.'],
-    answers:['posso','sabe','faço'], hints:['poder','saber','fazer'],
+    answers:['posso','sabe','faço'], hints:['pouvoir → ?','savoir → ?','faire → ?'],
     fr:'Je ne peux pas sortir, je dois étudier. Elle sait parler beaucoup de langues. Mon anniversaire est en avril.' },
 
   { id:'g7_t2', cat:'trou', type:'trou', prompt:'Verbes irréguliers — complète (U7) :',
     parts:['Meus filhos não ',' televisão aos domingos. Às vezes ',' o ônibus das 8h. Eu ',' aniversário em abril.'],
-    answers:['veem','perco','faço'], hints:['ver','perder','fazer'],
+    answers:['veem','perco','faço'], hints:['voir → ?','rater → ?','faire → ?'],
     fr:'Mes fils ne regardent pas la télé le dimanche. Je rate parfois le bus de 8h. Mon anniversaire est en avril.' },
 
   { id:'g7_q1', cat:'choix', type:'choix', prompt:'Verbe irrégulier — forme correcte :',
@@ -673,12 +681,12 @@ const ALL_EX = [
 
   { id:'g8_t1', cat:'trou', type:'trou', prompt:'Verbes en -ir — complète (U8) :',
     parts:['As lojas ',' às 10h. Eles ',' ir ao cinema. Não ',' abrir esta janela.'],
-    answers:['abrem','preferem','consigo'], hints:['abrir','preferir','conseguir (eu)'],
+    answers:['abrem','preferem','consigo'], hints:['ouvrir → ?','préférer → ?','réussir à (eu) → ?'],
     fr:'Les magasins ouvrent à 10h. Ils préfèrent aller au cinéma. Je n\'arrive pas à ouvrir cette fenêtre.' },
 
   { id:'g8_t2', cat:'trou', type:'trou', prompt:'Verbes en -ir — complète (U8) :',
     parts:['O professor ',' os exercícios amanhã. Nós ',' o texto para português. — Você se ',' bem?\n— Não, eu me ',' mal.'],
-    answers:['corrige','traduzimos','sente','sinto'], hints:['corrigir','traduzir','sentir (você)','sentir (eu)'],
+    answers:['corrige','traduzimos','sente','sinto'], hints:['corriger → ?','traduire → ?','se sentir (você) → ?','se sentir (eu) → ?'],
     fr:'Le prof corrige les exercices demain. Nous traduisons le texte en portugais. — Tu te sens bien ? — Non, je me sens mal.' },
 
   { id:'g8_q1', cat:'choix', type:'choix', prompt:'1ère pers. irrégulière en -ir :',
@@ -815,13 +823,13 @@ const ALL_EX = [
   { id:'a2_t1', cat:'trou', type:'trou',
     prompt:'Complète avec le bon verbe (gostar / adorar / interessar-se) :',
     parts:['Eu ','  de viajar. Ela ','  por esportes. Nós ','  chocolate!'],
-    answers:['gosto','se interessa','adoramos'], hints:['gostar+de','interessar-se por','adorar'],
+    answers:['gosto','se interessa','adoramos'], hints:['gostar / adorar ?','interessar ou gostar ?','gostar / adorar ?'],
     fr:'J\'aime voyager. Elle s\'intéresse aux sports. Nous adorons le chocolat!' },
 
   { id:'a2_t2', cat:'trou', type:'trou',
     prompt:'só ou sozinho(a) ? Complète :',
     parts:['Eu ','  tomo vinho branco. (seulement)\nEla vive ','  . (seule)'],
-    answers:['só','sozinha'], hints:['só = seulement','sozinha = seule'],
+    answers:['só','sozinha'], hints:['seulement → ?','seule → ?'],
     fr:'Je bois seulement du vin blanc. Elle vit seule.' },
 
   { id:'a2_t3', cat:'trou', type:'trou',
@@ -833,13 +841,13 @@ const ALL_EX = [
   { id:'a3_t1', cat:'trou', type:'trou',
     prompt:'atuar — complète avec la bonne forme :',
     parts:['Nestlé ','  na Suíça e em muitos outros países.\nDimitri ','  como chefe de projetos.'],
-    answers:['atua','atua'], hints:['3ª pers. sing.','3ª pers. sing.'],
+    answers:['atua','atua'], hints:['atuar ?','atuar ?'],
     fr:'Nestlé est présente en Suisse et dans beaucoup d\'autres pays. Dimitri est chef de projet.' },
 
   { id:'a3_t2', cat:'trou', type:'trou',
     prompt:'Complète avec gostar + contraction :',
     parts:['Eu gosto ','  meus colegas. (de + os)\nEu gosto ','  trabalho. (de + o)'],
-    answers:['dos','do'], hints:['de + os = dos','de + o = do'],
+    answers:['dos','do'], hints:['de + os = ?','de + o = ?'],
     fr:'J\'aime mes collègues. J\'aime mon travail.' },
 
   // ══ TRADUCTIONS ══
@@ -953,13 +961,97 @@ function isOk(ex, inputs){
   return false;
 }
 
+// ─── SRS (RÉPÉTITION ESPACÉE) ────────────────────────────────────
+// Stored in localStorage: { [exId]: { streak: 0-N, due: timestamp, seen: N } }
+// streak: consecutive correct answers
+// due: next time this exercise should appear (timestamp ms)
+// seen: total times answered
+
+const SRS_KEY = 'quiz_srs_v1';
+
+function srsLoad(){
+  try { return JSON.parse(localStorage.getItem(SRS_KEY)||'{}'); }
+  catch(e){ return {}; }
+}
+function srsSave(data){
+  try { localStorage.setItem(SRS_KEY, JSON.stringify(data)); } catch(e){}
+}
+
+function srsUpdate(exId, wasCorrect){
+  const data = srsLoad();
+  const rec = data[exId] || { streak:0, due:0, seen:0 };
+  rec.seen++;
+  if(wasCorrect){
+    rec.streak++;
+  } else {
+    rec.streak = 0;
+  }
+  // Due date: longer interval as streak grows
+  // streak 0 = now (always show), 1 = 1h, 2 = 6h, 3 = 1d, 4 = 3d, 5+ = 7d
+  const intervals = [0, 1, 6, 24, 72, 168]; // hours
+  const hours = intervals[Math.min(rec.streak, intervals.length-1)];
+  rec.due = Date.now() + hours * 3600000;
+  data[exId] = rec;
+  srsSave(data);
+}
+
+function srsGetWeight(ex){
+  // Combine lesson recency weight with SRS weight
+  const lessonW = WEIGHTS[ex.id] || 1;
+  const data = srsLoad();
+  const rec = data[ex.id];
+
+  if(!rec || rec.seen === 0){
+    // Never seen — high priority
+    return lessonW * 3;
+  }
+  const now = Date.now();
+  if(now < rec.due){
+    // Not due yet — drastically reduce (already mastered recently)
+    const mastered = rec.streak >= 3;
+    return mastered ? 0 : Math.max(1, lessonW - 1);
+  }
+  // Due — weight by how wrong / unseen
+  if(rec.streak === 0) return lessonW * 4;  // got wrong last time → max priority
+  if(rec.streak === 1) return lessonW * 3;
+  if(rec.streak === 2) return lessonW * 2;
+  return lessonW; // streak ≥ 3 but due → normal weight
+}
+
+function srsWeightedPool(indices){
+  const pool = [];
+  indices.forEach(i => {
+    const w = srsGetWeight(ALL_EX[i]);
+    for(let k=0; k<w; k++) pool.push(i);
+  });
+  return pool;
+}
+
+function srsWeightedSample(indices, n){
+  const pool = srsWeightedPool(indices);
+  // If pool is empty (all mastered), fall back to all
+  const workPool = pool.length > 0 ? pool : indices.map(i=>i);
+  const result = [];
+  const used = new Set();
+  const shuffled = shuffle(workPool);
+  for(const idx of shuffled){
+    if(!used.has(idx)){ used.add(idx); result.push(idx); }
+    if(result.length >= n) break;
+  }
+  // Fill any remaining from all indices
+  if(result.length < n){
+    for(const idx of shuffle(indices)){
+      if(!used.has(idx)){ used.add(idx); result.push(idx); }
+      if(result.length >= n) break;
+    }
+  }
+  return result;
+}
+
 // ─── STATE ───────────────────────────────────────────────────────
 const DAILY_COUNT = 30;
 
-// Weight by lesson — higher = appears more often
-// 3 tiers: recent (3×), mid (2×), older (1×)
 const WEIGHTS = {
-  // Aulas 14/08 & 28/08 — most recent (weight 3)
   a2_v1:3,a2_v2:3,a2_v3:3,a2_v4:3,a2_v5:3,a2_v6:3,a2_v7:3,a2_v8:3,a2_v9:3,a2_v10:3,
   a2_v11:3,a2_v12:3,a2_v13:3,a2_v14:3,a2_v15:3,a2_v16:3,a2_v17:3,a2_v18:3,
   a3_v1:3,a3_v2:3,a3_v3:3,a3_v4:3,a3_v5:3,a3_v6:3,a3_v7:3,a3_v8:3,a3_v9:3,a3_v10:3,
@@ -967,7 +1059,6 @@ const WEIGHTS = {
   a2_t1:3,a2_t2:3,a2_t3:3,a3_t1:3,a3_t2:3,
   a2_r1:3,a2_r2:3,a2_r3:3,a3_r1:3,a3_r2:3,a3_r3:3,a3_r4:3,
   a2_m1:3,a2_m2:3,a2_m3:3,a3_m1:3,a3_m2:3,a3_m3:3,
-  // Gramática Ativa U5-U8 + aulas mai/juin (weight 2)
   g5_c1:2,g5_c2:2,g5_c3:2,g5_t1:2,g5_q1:2,g5_trad1:2,
   g6_c1:2,g6_c2:2,g6_c3:2,g6_t1:2,g6_q1:2,g6_trad1:2,
   g7_c1:2,g7_c2:2,g7_c3:2,g7_c4:2,g7_c5:2,g7_c6:2,g7_t1:2,g7_t2:2,g7_q1:2,g7_q2:2,g7_trad1:2,g7_trad2:2,
@@ -977,46 +1068,7 @@ const WEIGHTS = {
   r9:2,r10:2,r11:2,r12:2,r13:2,
   t10:2,t11:2,t12:2,t13:2,
   m9:2,m10:2,
-  // Everything else — older lessons (weight 1, default)
 };
-
-function getWeight(ex){ return WEIGHTS[ex.id] || 1; }
-
-// Build a weighted pool: each exercise appears N times in the candidate array
-function weightedPool(indices){
-  const pool = [];
-  indices.forEach(i => {
-    const w = getWeight(ALL_EX[i]);
-    for(let k=0; k<w; k++) pool.push(i);
-  });
-  return pool;
-}
-
-// Pick N unique exercises from weighted pool
-function weightedSample(indices, n){
-  const pool = weightedPool(indices);
-  const result = [];
-  const used = new Set();
-  const shuffled = shuffle(pool);
-  for(const idx of shuffled){
-    if(!used.has(idx)){
-      used.add(idx);
-      result.push(idx);
-      if(result.length >= n) break;
-    }
-  }
-  // If not enough weighted results, fill from remaining
-  if(result.length < n){
-    for(const idx of shuffle(indices)){
-      if(!used.has(idx)){
-        used.add(idx);
-        result.push(idx);
-        if(result.length >= n) break;
-      }
-    }
-  }
-  return result;
-}
 
 let mode = 'day';
 let queue = [], cur = 0, correct = 0, answered = 0;
@@ -1029,27 +1081,13 @@ function todayKey(){
 }
 
 function buildQueue(){
-  let allIndices = ALL_EX.map((_,i)=>i);
-  let filteredIndices = mode==='all' ? allIndices
-    : mode==='day' ? allIndices
+  const allIndices = ALL_EX.map((_,i)=>i);
+  const filteredIndices = (mode==='all'||mode==='day')
+    ? allIndices
     : allIndices.filter(i=>ALL_EX[i].cat===mode);
 
-  let pool;
-  if(mode==='day'){
-    // Seeded for today so same 30 questions all day, but weighted toward recent
-    // We can't seed weighted — instead seed the day selection via seededShuffle of weighted pool
-    const seed = todayKey().split('-').reduce((a,b)=>a*31+parseInt(b),0);
-    const wp = weightedPool(filteredIndices);
-    const seededWp = seededShuffle(wp, seed);
-    const used = new Set();
-    pool = [];
-    for(const idx of seededWp){
-      if(!used.has(idx)){ used.add(idx); pool.push(idx); }
-      if(pool.length >= DAILY_COUNT) break;
-    }
-  } else {
-    pool = weightedSample(filteredIndices, filteredIndices.length);
-  }
+  const n = mode==='day' ? DAILY_COUNT : filteredIndices.length;
+  const pool = srsWeightedSample(filteredIndices, n);
 
   queue = pool; cur = 0; correct = 0; answered = 0; choiceSel = null;
   flips = {};
@@ -1096,6 +1134,24 @@ function showCurrent(){
   if(first) first.focus();
   main.querySelectorAll('input[data-i]').forEach(inp=>{
     inp.addEventListener('keydown', e=>{ if(e.key==='Enter') tryCheck(); });
+    // Add title tooltip for full hint text
+    if(inp.placeholder) inp.title = inp.placeholder;
+    // Scroll placeholder if too long: animate via focus/blur
+    inp.addEventListener('focus', function(){
+      if(this.value === '' && this.placeholder && this.placeholder.length > 12){
+        this._ph = this.placeholder;
+        let pos = 0;
+        const padded = this.placeholder + '   ';
+        this._scroll = setInterval(()=>{
+          pos = (pos+1) % padded.length;
+          this.placeholder = padded.slice(pos) + padded.slice(0, pos);
+        }, 120);
+      }
+    });
+    inp.addEventListener('blur', function(){
+      if(this._scroll){ clearInterval(this._scroll); this._scroll=null; }
+      if(this._ph) this.placeholder = this._ph;
+    });
   });
 }
 
@@ -1106,7 +1162,18 @@ function dayBanner(){
   const months = ['jan','fév','mar','avr','mai','jun','jul','août','sep','oct','nov','déc'];
   const label = `${days[d.getDay()]} ${d.getDate()} ${months[d.getMonth()]} ${d.getFullYear()}`;
   document.getElementById('h-date').textContent = label;
-  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 30 questions</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
+
+  // SRS stats
+  const data = srsLoad();
+  const total = ALL_EX.length;
+  const mastered = ALL_EX.filter(e => {
+    const rec = data[e.id];
+    return rec && rec.streak >= 3 && Date.now() < rec.due;
+  }).length;
+  const never = ALL_EX.filter(e => !data[e.id] || data[e.id].seen === 0).length;
+  const srsInfo = `<span style="opacity:0.7;font-size:0.68rem">✅ ${mastered} maîtrisées · ❓ ${never} jamais vues · 📚 ${total} total</span>`;
+
+  return `<div class="day-banner">📅 <span><strong>Session du jour</strong> — ${label} — 30 questions<br>${srsInfo}</span><button onclick="reshuffleDay()" style="margin-left:auto;background:var(--yellow);border:none;padding:5px 12px;font-family:'DM Mono',monospace;font-size:0.72rem;font-weight:600;cursor:pointer;color:#fff;flex-shrink:0">🔀 Nouvelles questions</button></div>`;
 }
 
 function buildCard(ex){
@@ -1216,6 +1283,8 @@ function tryCheck(){
 
   if(ok) correct++;
   answered++;
+  // Update SRS memory for this exercise
+  srsUpdate(ALL_EX[queue[cur]].id, ok);
   updateBar();
 
   // style inputs
@@ -1269,8 +1338,13 @@ function tryCheck(){
   // feedback
   const fb = document.getElementById('feedback');
   fb.className='feedback show '+(ok?'ok':'ko');
-  let msg = ok ? '✓ Parfait !' : `✗ ${(ex.type!=='conj'&&ex.type!=='trou')?'Réponse : <strong>'+correctDisplay+'</strong>':'Quelques erreurs.'}`;
-  if(ex.fr) msg += `<div class="fr-trans">🇫🇷 ${ex.fr}</div>`;
+  // Show streak badge
+  const rec = srsLoad()[ALL_EX[queue[cur]].id] || {streak:0};
+  const streakBadge = ok
+    ? `<span style="float:right;font-size:0.75rem;opacity:0.8">${['','🔥','🔥🔥','⭐','⭐⭐','🏆'][Math.min(rec.streak,5)]||'🏆'} ${rec.streak}× correct</span>`
+    : `<span style="float:right;font-size:0.75rem;opacity:0.8">↩ priorité max</span>`;
+  let msg = (ok ? '✓ Parfait ! ' : `✗ ${(ex.type!=='conj'&&ex.type!=='trou')?'Réponse : <strong>'+correctDisplay+'</strong>':'Quelques erreurs.'}`) + streakBadge;
+  if(ex.fr) msg += `<div class="fr-trans" style="clear:both">🇫🇷 ${ex.fr}</div>`;
   if(ex.frNote) msg += `<div class="note-line">📝 ${ex.frNote}</div>`;
   if(ex.note) msg += `<div class="note-line">📝 ${ex.note}</div>`;
   fb.innerHTML = msg;
@@ -1297,13 +1371,7 @@ function showEnd(main){
 function restart(){ buildQueue(); cur=0; correct=0; answered=0; showCurrent(); }
 
 function reshuffleDay(){
-  const allIndices = ALL_EX.map((_,i)=>i);
-  queue = weightedSample(allIndices, DAILY_COUNT);
-  cur=0; correct=0; answered=0; choiceSel=null;
-  flips = {};
-  queue.forEach((idx, qi) => {
-    if(ALL_EX[idx].type === 'word') flips[qi] = Math.random() < 0.5;
-  });
+  buildQueue();
   showCurrent();
 }
 
